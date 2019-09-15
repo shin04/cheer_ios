@@ -5,6 +5,7 @@ target 'cheer_ios' do
   use_frameworks!
 
   pod "Alamofire"
+  pod "SwiftyJSON"
 
   target 'cheer_iosTests' do
     inherit! :search_paths
