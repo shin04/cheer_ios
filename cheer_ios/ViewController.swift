@@ -65,7 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request("https://7cba995a.ngrok.io/api/posts/").response { response in
+        Alamofire.request("https://282d0b9d.ngrok.io/api/posts/").response { response in
             guard let data = response.data else {
                 return
             }
@@ -86,7 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             "password": "admin"
         ]
         
-        Alamofire.request("https://7cba995a.ngrok.io/api/rest-auth/login/",
+        Alamofire.request("https://282d0b9d.ngrok.io/api/rest-auth/login/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default, headers: nil)
