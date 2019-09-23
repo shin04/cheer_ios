@@ -20,7 +20,7 @@ struct Post: Codable {
     let title: String
     let text: String
     let created_date: String
-    let published_date: String
+    let published_date: String?
     let pk: Int
 }
 
@@ -65,7 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request("https://3bfa4785.ngrok.io/api/posts/").response { response in
+        Alamofire.request("https://7cba995a.ngrok.io/api/posts/").response { response in
             guard let data = response.data else {
                 return
             }
@@ -77,6 +77,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    @IBAction func loginAC(_ sender: Any) {
+        let parameters: [String: Any] = [
+            "username": "admin",
+            "password": "admin"
+        ]
+        
+        Alamofire.request("https://7cba995a.ngrok.io/api/rest-auth/login/",
+                          method: .post,
+                          parameters: parameters,
+                          encoding: JSONEncoding.default, headers: nil)
+            .responseJSON { response in
+                do {
+                    let result = response.result.value as? [String: Any]
+                    print(result!)
+                } catch {
+                    print(error)
+                }
+//                if let result = response.result.value as? [String: Any] {
+//                    print(result)
+//                } else {
+//                    print("error")
+//                }
         }
     }
 
