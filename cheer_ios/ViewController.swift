@@ -80,25 +80,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func loginAC(_ sender: Any) {
-        //let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
-        //self.navigationController?.pushViewController(login, animated: true)
-        let parameters: [String: Any] = [
-            "username": "admin",
-            "password": "admin"
-        ]
-
-        Alamofire.request("https://aa479ca6.ngrok.io/api/rest-auth/login/",
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default, headers: nil)
-            .responseJSON { response in
-                do {
-                    let result = response.result.value as? [String: Any]
-                    print(result!)
-                } catch {
-                    print(error)
-                }
-        }
+        let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
+        self.navigationController?.pushViewController(login, animated: true)
+//        let parameters: [String: Any] = [
+//            "username": "admin",
+//            "password": "admin"
+//        ]
+//
+//        Alamofire.request("https://aa479ca6.ngrok.io/api/rest-auth/login/",
+//                          method: .post,
+//                          parameters: parameters,
+//                          encoding: JSONEncoding.default, headers: nil)
+//            .responseJSON { response in
+//                do {
+//                    let result = response.result.value as? [String: Any]
+//                    print(result!)
+//                } catch {
+//                    print(error)
+//                }
+//        }
     }
 
 }
