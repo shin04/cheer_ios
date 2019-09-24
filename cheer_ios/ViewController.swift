@@ -12,7 +12,7 @@ import SwiftyJSON
 
 struct User: Codable {
     let username: String
-    let email: String
+    let email: String?
 }
 
 struct Post: Codable {
@@ -56,16 +56,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
-        //performSegue(withIdentifier: "toPostDetail", sender: nil)
-        let segue = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
-        segue.postTitle = posts?[indexPath.row].title
-        segue.postText = posts?[indexPath.row].text
-        segue.username = posts?[indexPath.row].author.username
-        self.navigationController?.pushViewController(segue, animated: true)
+        let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
+        postDetail.postTitle = posts?[indexPath.row].title
+        postDetail.postText = posts?[indexPath.row].text
+        postDetail.username = posts?[indexPath.row].author.username
+        self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
     func loadData() {
-        Alamofire.request("https://282d0b9d.ngrok.io/api/posts/").response { response in
+        Alamofire.request("https://aa479ca6.ngrok.io/api/posts/").response { response in
             guard let data = response.data else {
                 return
             }
@@ -81,12 +80,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func loginAC(_ sender: Any) {
+        //let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
+        //self.navigationController?.pushViewController(login, animated: true)
         let parameters: [String: Any] = [
             "username": "admin",
             "password": "admin"
         ]
-        
-        Alamofire.request("https://282d0b9d.ngrok.io/api/rest-auth/login/",
+
+        Alamofire.request("https://aa479ca6.ngrok.io/api/rest-auth/login/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default, headers: nil)
@@ -97,11 +98,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 } catch {
                     print(error)
                 }
-//                if let result = response.result.value as? [String: Any] {
-//                    print(result)
-//                } else {
-//                    print("error")
-//                }
         }
     }
 
