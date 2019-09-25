@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
+    var token: String?
     
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
@@ -43,14 +44,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "password": password!,
                 ]
             
-            Alamofire.request("https://aa479ca6.ngrok.io/api/rest-auth/login/",
+            Alamofire.request("https://87cfdc05.ngrok.io/api/rest-auth/login/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)
                 .responseJSON { response in
                     do {
                         let result = response.result.value as? [String: Any]
+                        self.token = result!["key"]! as? String
                         print(result!)
+                        print(self.token!)
+                        
+                        let nav = self.navigationController
+                        let home = nav?.viewControllers[(nav?.viewControllers.count)!-2] as! ViewController
+                        home.token = self.token
+                        self.navigationController?.popViewController(animated: true)
                     } catch {
                         print(error)
                     }

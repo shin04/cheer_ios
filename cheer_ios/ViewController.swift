@@ -28,12 +28,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var tableView: UITableView!
     
     var posts: [Post]?
+    var token: String?
+    var header: [String: String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.header?.updateValue(token!, forKey: "token")
         
         self.loadData()
     }
@@ -64,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request("https://aa479ca6.ngrok.io/api/posts/").response { response in
+        Alamofire.request("https://87cfdc05.ngrok.io/api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }
