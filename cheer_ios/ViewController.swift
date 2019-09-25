@@ -27,6 +27,8 @@ struct Post: Codable {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     
+    let url: String = "https://87cfdc05.ngrok.io/"
+    
     var posts: [Post]?
     var token: String?
     var header: [String: String]?
@@ -36,7 +38,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.header?.updateValue(token!, forKey: "token")
         
         self.loadData()
@@ -68,7 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request("https://87cfdc05.ngrok.io/api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
             guard let data = response.data else {
                 return
             }
@@ -91,7 +95,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            "password": "admin"
 //        ]
 //
-//        Alamofire.request("https://aa479ca6.ngrok.io/api/rest-auth/login/",
+//        Alamofire.request(url,
 //                          method: .post,
 //                          parameters: parameters,
 //                          encoding: JSONEncoding.default, headers: nil)
