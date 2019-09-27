@@ -10,6 +10,10 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+struct Hello: Codable {
+    let message: String?
+}
+
 struct User: Codable {
     let username: String
     let email: String?
@@ -27,10 +31,10 @@ struct Post: Codable {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     
-    let url: String = "https://87cfdc05.ngrok.io/"
+    let url: String = "https://7407fda6.ngrok.io/"
     
     var posts: [Post]?
-    var token: String?
+    var token: String = "6d0bd23056c7a952c8c306faa441e22f6e27ca95"
     var header: [String: String]?
     
     override func viewDidLoad() {
@@ -41,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.header?.updateValue(token!, forKey: "token")
+        self.header?.updateValue(token, forKey: "token")
         
         self.loadData()
     }
@@ -72,7 +76,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+        Alamofire.request(url + "api/hello", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { reponse in
+            guard let data = reponse.data else {
+                return
+            }
+            let decoder  = JSONDecoder()
+            do {
+                let hello: Hello = try decoder.decode(Hello.self, from: data)
+                print(hello)
+            } catch {
+                print(error)
+            }
+        }
+        
+        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }

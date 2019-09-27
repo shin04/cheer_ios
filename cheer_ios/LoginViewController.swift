@@ -44,7 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "password": password!,
                 ]
             
-            Alamofire.request("https://87cfdc05.ngrok.io/api/rest-auth/login/",
+            Alamofire.request("https://7407fda6.ngrok.io/api/rest-auth/login/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         
                         let nav = self.navigationController
                         let home = nav?.viewControllers[(nav?.viewControllers.count)!-2] as! ViewController
-                        home.token = self.token
+                        home.token = self.token!
                         self.navigationController?.popViewController(animated: true)
                     } catch {
                         print(error)
