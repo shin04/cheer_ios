@@ -44,7 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "password": password!,
                 ]
             
-            Alamofire.request("https://e663006b.ngrok.io/api/rest-auth/login/",
+            Alamofire.request("https://2a184153.ngrok.io/api/rest-auth/login/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)

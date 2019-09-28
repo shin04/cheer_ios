@@ -92,8 +92,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-kB-vH2">
+                                <rect key="frame" x="239" y="86" width="60" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="logout"/>
+                                <connections>
+                                    <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwr-AP-0vY"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUo-Sg-qie">
-                                <rect key="frame" x="255" y="94" width="34" height="30"/>
+                                <rect key="frame" x="239" y="86" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="login"/>
                                 <connections>
@@ -101,17 +109,28 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNS-gs-gdk">
-                                <rect key="frame" x="307" y="94" width="53" height="30"/>
+                                <rect key="frame" x="307" y="86" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="register"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="初めましてゲストさん" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-zz-Pof">
+                                <rect key="frame" x="16" y="86" width="200" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="bN7-Lc-PZ3"/>
                     <connections>
+                        <outlet property="loginBtn" destination="sUo-Sg-qie" id="oMM-gc-fFu"/>
+                        <outlet property="logoutBtn" destination="d6L-kB-vH2" id="caI-Ns-gim"/>
+                        <outlet property="registerBtn" destination="mNS-gs-gdk" id="LTK-u9-99N"/>
                         <outlet property="tableView" destination="4Z9-3n-lgd" id="sAm-nq-hNT"/>
+                        <outlet property="usernameLabel" destination="oGL-zz-Pof" id="Jna-de-It9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

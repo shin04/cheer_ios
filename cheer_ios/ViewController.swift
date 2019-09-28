@@ -11,7 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 struct Who: Codable {
-    let message: String?
+    let username: String?
+    let token: String?
 }
 
 struct User: Codable {
@@ -30,12 +31,16 @@ struct Post: Codable {
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var loginBtn: UIButton!
+    @IBOutlet var logoutBtn: UIButton!
+    @IBOutlet var registerBtn: UIButton!
+    @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://e663006b.ngrok.io/"
-    
+    let url: String = "https://2a184153.ngrok.io/"
     var posts: [Post]?
-    var token: String?
+    var token: String = ""
     var header: [String: String]?
+    var username: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +50,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(self.token!)
-        self.header?.updateValue(token!, forKey: "token")
-        
+        self.isUser()
+        if self.token != "" {
+            loginBtn.alpha = 1
+            logoutBtn.alpha = 0
+            registerBtn.alpha = 1
+        } else {
+            loginBtn.alpha = 0
+            logoutBtn.alpha = 1
+            registerBtn.alpha = 0
+            self.username = "ゲスト"
+        }
+        self.header?.updateValue(token, forKey: "token")
         self.loadData()
+        self.usernameLabel.text = "こんにちは、\(self.username)さん"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,7 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
-    func loadData() {
+    func isUser() {
         Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { reponse in
             guard let data = reponse.data else {
                 return
@@ -84,12 +99,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let decoder  = JSONDecoder()
             do {
                 let who: Who = try decoder.decode(Who.self, from: data)
-                print(who)
+                self.username = who.username!
+                self.token = who.token!
+                print(self.username)
+                print(self.token)
             } catch {
                 print(error)
             }
         }
-        
+    }
+    
+    func loadData() {
         Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
