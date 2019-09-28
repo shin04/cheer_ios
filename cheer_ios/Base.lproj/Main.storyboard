@@ -92,20 +92,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-kB-vH2">
-                                <rect key="frame" x="239" y="86" width="60" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="logout"/>
-                                <connections>
-                                    <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pwr-AP-0vY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUo-Sg-qie">
                                 <rect key="frame" x="239" y="86" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="login"/>
                                 <connections>
-                                    <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8FS-2K-fY8"/>
+                                    <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TY9-LS-h8P"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNS-gs-gdk">
@@ -126,11 +118,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="bN7-Lc-PZ3"/>
                     <connections>
-                        <outlet property="loginBtn" destination="sUo-Sg-qie" id="oMM-gc-fFu"/>
-                        <outlet property="logoutBtn" destination="d6L-kB-vH2" id="caI-Ns-gim"/>
-                        <outlet property="registerBtn" destination="mNS-gs-gdk" id="LTK-u9-99N"/>
-                        <outlet property="tableView" destination="4Z9-3n-lgd" id="sAm-nq-hNT"/>
-                        <outlet property="usernameLabel" destination="oGL-zz-Pof" id="Jna-de-It9"/>
+                        <outlet property="loginBtn" destination="sUo-Sg-qie" id="v1I-O9-Riq"/>
+                        <outlet property="registerBtn" destination="mNS-gs-gdk" id="nY2-tI-FWq"/>
+                        <outlet property="tableView" destination="4Z9-3n-lgd" id="OW8-vf-hXx"/>
+                        <outlet property="usernameLabel" destination="oGL-zz-Pof" id="K1O-E0-a8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

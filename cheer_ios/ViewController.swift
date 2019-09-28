@@ -32,7 +32,6 @@ struct Post: Codable {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var loginBtn: UIButton!
-    @IBOutlet var logoutBtn: UIButton!
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
@@ -53,11 +52,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.isUser()
         if self.token != "" {
             self.loginBtn.alpha = 1
-            self.logoutBtn.alpha = 0
             self.registerBtn.alpha = 1
         } else {
             self.loginBtn.alpha = 0
-            self.logoutBtn.alpha = 1
             self.registerBtn.alpha = 0
             self.username = "ゲスト"
         }
