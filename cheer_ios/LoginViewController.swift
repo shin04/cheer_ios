@@ -51,7 +51,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 .responseJSON { response in
                     do {
                         let result = response.result.value as? [String: Any]
-                        //self.token = result!["key"]! as? String
                         self.token = result?["key"] as? String
                         print(result!)
                         print(self.token!)

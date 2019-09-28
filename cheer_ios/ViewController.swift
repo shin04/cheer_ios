@@ -52,18 +52,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         self.isUser()
         if self.token != "" {
-            loginBtn.alpha = 1
-            logoutBtn.alpha = 0
-            registerBtn.alpha = 1
+            self.loginBtn.alpha = 1
+            self.logoutBtn.alpha = 0
+            self.registerBtn.alpha = 1
         } else {
-            loginBtn.alpha = 0
-            logoutBtn.alpha = 1
-            registerBtn.alpha = 0
+            self.loginBtn.alpha = 0
+            self.logoutBtn.alpha = 1
+            self.registerBtn.alpha = 0
             self.username = "ゲスト"
         }
-        self.header?.updateValue(token, forKey: "token")
+        self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
-        self.usernameLabel.text = "こんにちは、\(self.username)さん"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,6 +100,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let who: Who = try decoder.decode(Who.self, from: data)
                 self.username = who.username!
                 self.token = who.token!
+                self.usernameLabel.text = "こんにちは、\(self.username)さん"
                 print(self.username)
                 print(self.token)
             } catch {
