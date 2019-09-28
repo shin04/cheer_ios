@@ -44,14 +44,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "password": password!,
                 ]
             
-            Alamofire.request("https://7407fda6.ngrok.io/api/rest-auth/login/",
+            Alamofire.request("https://e663006b.ngrok.io/api/rest-auth/login/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)
                 .responseJSON { response in
                     do {
                         let result = response.result.value as? [String: Any]
-                        self.token = result!["key"]! as? String
+                        //self.token = result!["key"]! as? String
+                        self.token = result?["key"] as? String
                         print(result!)
                         print(self.token!)
                         

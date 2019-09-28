@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-struct Hello: Codable {
+struct Who: Codable {
     let message: String?
 }
 
@@ -31,7 +31,7 @@ struct Post: Codable {
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     
-    let url: String = "https://7407fda6.ngrok.io/"
+    let url: String = "https://e663006b.ngrok.io/"
     
     var posts: [Post]?
     var token: String = "6d0bd23056c7a952c8c306faa441e22f6e27ca95"
@@ -76,14 +76,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        Alamofire.request(url + "api/hello", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { reponse in
+        Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { reponse in
             guard let data = reponse.data else {
                 return
             }
             let decoder  = JSONDecoder()
             do {
-                let hello: Hello = try decoder.decode(Hello.self, from: data)
-                print(hello)
+                let who: Who = try decoder.decode(Who.self, from: data)
+                print(who)
             } catch {
                 print(error)
             }
@@ -107,23 +107,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func loginAC(_ sender: Any) {
         let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
         self.navigationController?.pushViewController(login, animated: true)
-//        let parameters: [String: Any] = [
-//            "username": "admin",
-//            "password": "admin"
-//        ]
-//
-//        Alamofire.request(url,
-//                          method: .post,
-//                          parameters: parameters,
-//                          encoding: JSONEncoding.default, headers: nil)
-//            .responseJSON { response in
-//                do {
-//                    let result = response.result.value as? [String: Any]
-//                    print(result!)
-//                } catch {
-//                    print(error)
-//                }
-//        }
     }
 
 }
