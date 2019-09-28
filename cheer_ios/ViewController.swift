@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let url: String = "https://e663006b.ngrok.io/"
     
     var posts: [Post]?
-    var token: String = "6d0bd23056c7a952c8c306faa441e22f6e27ca95"
+    var token: String?
     var header: [String: String]?
     
     override func viewDidLoad() {
@@ -45,7 +45,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.header?.updateValue(token, forKey: "token")
+        print(self.token!)
+        self.header?.updateValue(token!, forKey: "token")
         
         self.loadData()
     }
