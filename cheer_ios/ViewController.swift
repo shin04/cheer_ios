@@ -35,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://2a184153.ngrok.io/"
+    let url: String = "https://01e87434.ngrok.io/"
     var posts: [Post]?
     var token: String = ""
     var header: [String: String]?
@@ -51,11 +51,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         self.isUser()
         if self.token != "" {
-            self.loginBtn.alpha = 1
-            self.registerBtn.alpha = 1
-        } else {
             self.loginBtn.alpha = 0
             self.registerBtn.alpha = 0
+        } else {
+            self.loginBtn.alpha = 1
+            self.registerBtn.alpha = 1
             self.username = "ゲスト"
         }
         self.header?.updateValue(self.token, forKey: "token")
@@ -125,6 +125,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func loginAC(_ sender: Any) {
         let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
         self.navigationController?.pushViewController(login, animated: true)
+    }
+    
+    @IBAction func signupAC(_ sender: Any) {
+        let signup = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
+        self.navigationController?.pushViewController(signup, animated: true)
     }
 
 }

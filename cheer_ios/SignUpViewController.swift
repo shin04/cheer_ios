@@ -1,50 +1,65 @@
 //
-//  LoginViewController.swift
+//  SignUpViewController.swift
 //  cheer_ios
 //
-//  Created by 梶原大進 on 2019/09/24.
+//  Created by 梶原大進 on 2019/10/02.
 //  Copyright © 2019年 梶原大進. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
-    var token: String?
-    
-    @IBOutlet var usernameTextField: UITextField!
-    @IBOutlet var passwordTextField: UITextField!
+class SignUpViewController: UIViewController, UITextFieldDelegate {
+    @IBOutlet var usernameField: UITextField!
+    @IBOutlet var emailField: UITextField!
+    @IBOutlet var passwordField: UITextField!
+    @IBOutlet var confirmField: UITextField!
     
     var username: String?
+    var email: String?
     var password: String?
+    var confirm: String?
+    
+    var token: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-        usernameTextField.tag = 1
-        passwordTextField.tag = 2
+        usernameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        confirmField.delegate = self
+        
+        usernameField.tag = 1
+        emailField.tag = 2
+        passwordField.tag = 3
+        confirmField.tag = 4
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == 1 {
-            username = usernameTextField.text!
+            username = usernameField.text!
         } else if textField.tag == 2 {
-            password = passwordTextField.text!
+            email = emailField.text!
+        } else if textField.tag == 3 {
+            password = passwordField.text!
+        } else if textField.tag == 4 {
+            confirm = confirmField.text!
         }
         textField.resignFirstResponder()
         return true
     }
     
-    @IBAction func login(_ sender: Any) {
+    @IBAction func signUpAC(_ sender: Any) {
         if username != nil || password != nil {
             let parameters: [String: Any] = [
                 "username": username!,
-                "password": password!,
+                "email": email!,
+                "password1": password!,
+                "password2": confirm!,
                 ]
             
-            Alamofire.request("https://01e87434.ngrok.io/api/rest-auth/login/",
+            Alamofire.request("https://01e87434.ngrok.io/api/rest-auth/registration/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)
