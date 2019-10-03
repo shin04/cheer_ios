@@ -44,7 +44,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var usernameLabel: UILabel!
     
     let url: String = "https://88f64a2f.ngrok.io/"
-    var posts: [Post]?
+    var posts: [Post] = []
+    var drafts: [Post] = []
     var token: String = ""
     var header: [String: String]?
     var username: String = ""
@@ -73,8 +74,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if ((posts?.count) != nil) {
-            return (posts?.count)!
+        if ((posts.count) != nil) {
+            return (posts.count)
         } else {
             return 0
         }
@@ -82,7 +83,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = posts?[indexPath.row].title
+        cell.textLabel!.text = posts[indexPath.row].title
         
         return cell
     }
@@ -91,9 +92,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
         let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
-        postDetail.postTitle = posts?[indexPath.row].title
-        postDetail.postText = posts?[indexPath.row].text
-        postDetail.username = posts?[indexPath.row].author.username
+        postDetail.postTitle = posts[indexPath.row].title
+        postDetail.postText = posts[indexPath.row].text
+        postDetail.username = posts[indexPath.row].author.username
         self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
@@ -127,7 +128,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let decoder  = JSONDecoder()
             do {
                 let posts: [Post] = try decoder.decode([Post].self, from: data)
-                self.posts = posts
+                //self.posts = posts
+                for post in posts {
+                    if post.published_date != nil {
+                        self.posts.append(post)
+                    } else {
+                        self.drafts.append(post)
+                    }
+                }
                 self.tableView.reloadData()
             } catch {
                 print(error)
@@ -148,6 +156,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func mypageAC(_ sender: Any) {
         let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
         mypage.posts = self.posts
+        mypage.drafts = self.drafts
         mypage.username = self.username
         self.navigationController?.pushViewController(mypage, animated: true)
     }
