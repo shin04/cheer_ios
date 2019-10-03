@@ -172,10 +172,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func mypageAC(_ sender: Any) {
         let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
-        mypage.posts = self.posts
-        mypage.drafts = self.drafts
-        mypage.comments = self.comments
         mypage.username = self.username
+        mypage.token = self.token
         self.navigationController?.pushViewController(mypage, animated: true)
     }
 

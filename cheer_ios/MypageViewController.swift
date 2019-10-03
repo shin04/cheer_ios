@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
@@ -15,6 +16,8 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var drafts: [Post]?
     var comments: [Comment]?
     var username: String?
+    var token: String = ""
+    var header: [String: String]?
     var sectionTitles: [String] = ["投稿", "応援一覧", "草稿"]
 
     override func viewDidLoad() {
@@ -22,6 +25,9 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.header?.updateValue(self.token, forKey: "token")
+        self.loadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,5 +84,30 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
+    func loadData() {
+        Alamofire.request("https://f9960ea4.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder  = JSONDecoder()
+            do {
+                let allposts: [Post] = try decoder.decode([Post].self, from: data)
+                var posts: [Post] = []
+                var drafts: [Post] = []
+                for post in allposts {
+                    if post.published_date != nil {
+                        posts.append(post)
+                    } else {
+                        drafts.append(post)
+                    }
+                }
+                self.posts = posts
+                self.drafts = drafts
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
