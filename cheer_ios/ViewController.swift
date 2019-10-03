@@ -29,13 +29,21 @@ struct Post: Codable {
     let pk: Int
 }
 
+struct Comment: Codable {
+    let post: Post
+    let author: String?
+    let text: String?
+    let created_date: String
+}
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var registerBtn: UIButton!
+    @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://01e87434.ngrok.io/"
+    let url: String = "https://88f64a2f.ngrok.io/"
     var posts: [Post]?
     var token: String = ""
     var header: [String: String]?
@@ -53,9 +61,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.token != "" {
             self.loginBtn.alpha = 0
             self.registerBtn.alpha = 0
+            self.mypageBtn.alpha = 1
         } else {
             self.loginBtn.alpha = 1
             self.registerBtn.alpha = 1
+            self.mypageBtn.alpha = 0
             self.username = "ゲスト"
         }
         self.header?.updateValue(self.token, forKey: "token")
@@ -98,6 +108,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.username = who.username!
                 self.token = who.token!
                 self.usernameLabel.text = "こんにちは、\(self.username)さん"
+                self.loginBtn.alpha = 0
+                self.registerBtn.alpha = 0
+                self.mypageBtn.alpha = 1
                 print(self.username)
                 print(self.token)
             } catch {
@@ -130,6 +143,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func signupAC(_ sender: Any) {
         let signup = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
         self.navigationController?.pushViewController(signup, animated: true)
+    }
+    
+    @IBAction func mypageAC(_ sender: Any) {
+        let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
+        mypage.posts = self.posts
+        mypage.username = self.username
+        self.navigationController?.pushViewController(mypage, animated: true)
     }
 
 }
