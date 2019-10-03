@@ -59,7 +59,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 "password2": confirm!,
                 ]
             
-            Alamofire.request("https://88f64a2f.ngrok.io/api/rest-auth/registration/",
+            Alamofire.request("https://f9960ea4.ngrok.io/api/rest-auth/registration/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)
