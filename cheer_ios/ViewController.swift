@@ -12,6 +12,7 @@ import SwiftyJSON
 
 struct Who: Codable {
     let username: String?
+    let email: String?
     let token: String?
 }
 
@@ -50,6 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var token: String = ""
     var header: [String: String]?
     var username: String = ""
+    var email:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +110,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             do {
                 let who: Who = try decoder.decode(Who.self, from: data)
                 self.username = who.username!
+                self.email = who.email!
                 self.token = who.token!
                 self.usernameLabel.text = "こんにちは、\(self.username)さん"
                 self.loginBtn.alpha = 0
@@ -173,6 +176,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func mypageAC(_ sender: Any) {
         let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
         mypage.username = self.username
+        mypage.email = self.email
         mypage.token = self.token
         self.navigationController?.pushViewController(mypage, animated: true)
     }

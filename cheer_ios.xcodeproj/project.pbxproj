@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E5C2E2345877000BB6DCE /* MypageViewController.swift */; };
 		162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5F6B2344D5A600397D89 /* SignUpViewController.swift */; };
+		167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1671749F2346CEA400C3FA93 /* NewPostViewController.swift */; };
 		16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF90B22FE6F090036F215 /* AppDelegate.swift */; };
 		16ABF90E22FE6F090036F215 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF90D22FE6F090036F215 /* ViewController.swift */; };
 		16ABF91122FE6F090036F215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16ABF90F22FE6F090036F215 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		161E5C2E2345877000BB6DCE /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		162C5F6B2344D5A600397D89 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		1671749F2346CEA400C3FA93 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
 		16ABF90822FE6F090036F215 /* cheer_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cheer_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16ABF90B22FE6F090036F215 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16ABF90D22FE6F090036F215 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				16B81E052339B2C00022861F /* LoginViewController.swift */,
 				162C5F6B2344D5A600397D89 /* SignUpViewController.swift */,
 				161E5C2E2345877000BB6DCE /* MypageViewController.swift */,
+				1671749F2346CEA400C3FA93 /* NewPostViewController.swift */,
 				16ABF90F22FE6F090036F215 /* Main.storyboard */,
 				16ABF91222FE6F0B0036F215 /* Assets.xcassets */,
 				16ABF91422FE6F0B0036F215 /* LaunchScreen.storyboard */,
@@ -408,6 +411,7 @@
 				16B81E062339B2C00022861F /* LoginViewController.swift in Sources */,
 				16ABF90E22FE6F090036F215 /* ViewController.swift in Sources */,
 				16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */,
+				167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */,
 				161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */,
 				16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */,
 				162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */,

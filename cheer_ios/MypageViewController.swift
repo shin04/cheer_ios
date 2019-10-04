@@ -16,6 +16,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var drafts: [Post]?
     var comments: [Comment]?
     var username: String?
+    var email: String?
     var token: String = ""
     var header: [String: String]?
     var sectionTitles: [String] = ["投稿", "応援一覧", "草稿"]
@@ -121,5 +122,13 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 print(error)
             }
         }
+    }
+    
+    @IBAction func postViewAC(_ sender: Any) {
+        let newpost = self.storyboard?.instantiateViewController(withIdentifier: "newpost") as! NewPostViewController
+        newpost.username = self.username
+        newpost.email = self.email
+        newpost.token = self.token
+        self.navigationController?.pushViewController(newpost, animated: true)
     }
 }
