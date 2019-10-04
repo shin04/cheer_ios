@@ -17,8 +17,8 @@ struct Who: Codable {
 }
 
 struct User: Codable {
-    let username: String
-    let email: String?
+    var username: String?
+    var email: String?
 }
 
 struct Post: Codable {
@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://5dad2dd7.ngrok.io/"
+    let url: String = "https://444aa3d4.ngrok.io/"
     var posts: [Post]?
     var drafts: [Post]?
     var comments: [Comment]?
