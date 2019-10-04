@@ -16,6 +16,8 @@ class PostDetailViewController: UIViewController {
     var postTitle: String!
     var postText: String!
     var username: String!
+    
+    var comment: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()

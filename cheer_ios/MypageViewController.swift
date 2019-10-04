@@ -81,12 +81,24 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
+        let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
+        if indexPath.section == 0 {
+            postDetail.postTitle = posts![indexPath.row].title
+            postDetail.postText = posts![indexPath.row].text
+            postDetail.username = posts![indexPath.row].author.username
+        } else if indexPath.section == 1 {
+            postDetail.comment = comments![indexPath.row].text
+        } else {
+            postDetail.postTitle = drafts![indexPath.row].title
+            postDetail.postText = drafts![indexPath.row].text
+            postDetail.username = drafts![indexPath.row].author.username
+        }
+        self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
     func loadData() {
-        Alamofire.request("https://f9960ea4.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request("https://5dad2dd7.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }
