@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 struct Who: Codable {
+    let id: Int?
     let username: String?
     let email: String?
     let token: String?
@@ -22,12 +23,12 @@ struct User: Codable {
 }
 
 struct Post: Codable {
+    let id: Int
     let author: User
     let title: String
     let text: String
     let created_date: String
     let published_date: String?
-    let pk: Int
 }
 
 struct Comment: Codable {
@@ -44,12 +45,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://444aa3d4.ngrok.io/"
+    let url: String = "https://f853a982.ngrok.io/"
     var posts: [Post]?
     var drafts: [Post]?
     var comments: [Comment]?
     var token: String = ""
     var header: [String: String]?
+    var id: Int?
     var username: String = ""
     var email:String = ""
     
@@ -109,6 +111,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let decoder  = JSONDecoder()
             do {
                 let who: Who = try decoder.decode(Who.self, from: data)
+                self.id = who.id
                 self.username = who.username!
                 self.email = who.email!
                 self.token = who.token!
@@ -116,6 +119,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.loginBtn.alpha = 0
                 self.registerBtn.alpha = 0
                 self.mypageBtn.alpha = 1
+                print(self.id!)
                 print(self.username)
                 print(self.token)
             } catch {
@@ -175,6 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func mypageAC(_ sender: Any) {
         let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
+        mypage.id = self.id
         mypage.username = self.username
         mypage.email = self.email
         mypage.token = self.token

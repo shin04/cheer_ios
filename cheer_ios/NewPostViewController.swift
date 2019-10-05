@@ -13,13 +13,12 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textField: UITextField!
     
+    var id: Int?
     var username: String?
     var email: String?
     var token: String = ""
-    var user = User()
     var postTitle: String = ""
     var postText: String = ""
-    var header: [String: String]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +28,6 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         titleField.tag = 1
         textField.tag = 2
         
-        self.user.username = self.username
-        self.user.email = self.email
-        
-        self.header?.updateValue(self.token, forKey: "token")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -46,17 +41,18 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func postAC(_ sender: Any) {
+        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         let parameters: [String: Any] = [
-            "author": user,
-            "title": postTitle,
-            "text": postText,
+            "author_id": self.id!,
+            "title": self.postTitle,
+            "text": self.postText,
             ]
         
-        Alamofire.request("https://444aa3d4.ngrok.io/api/posts/",
+        Alamofire.request("https://f853a982.ngrok.io/api/posts/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
-                          headers: header)
+                          headers: headers)
             .responseJSON { response in
                 do {
                     let result = response.result.value

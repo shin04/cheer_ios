@@ -15,6 +15,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var posts: [Post]?
     var drafts: [Post]?
     var comments: [Comment]?
+    var id: Int?
     var username: String?
     var email: String?
     var token: String = ""
@@ -99,7 +100,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData() {
-        Alamofire.request("https://444aa3d4.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request("https://f853a982.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }
@@ -126,6 +127,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func postViewAC(_ sender: Any) {
         let newpost = self.storyboard?.instantiateViewController(withIdentifier: "newpost") as! NewPostViewController
+        newpost.id = self.id
         newpost.username = self.username
         newpost.email = self.email
         newpost.token = self.token
