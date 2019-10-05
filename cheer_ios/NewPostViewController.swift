@@ -9,9 +9,9 @@
 import UIKit
 import Alamofire
 
-class NewPostViewController: UIViewController, UITextFieldDelegate {
+class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet var titleField: UITextField!
-    @IBOutlet var textField: UITextField!
+    @IBOutlet var textView: UITextView!
     
     var id: Int?
     var username: String?
@@ -24,23 +24,30 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         titleField.delegate = self
-        textField.delegate = self
-        titleField.tag = 1
-        textField.tag = 2
+//        titleField.tag = 1
+//        textField.tag = 2
         
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.tag == 1 {
-            postTitle = titleField.text!
-        } else if textField.tag == 2 {
-            postText = textField.text!
-        }
+//        if textField.tag == 1 {
+//            postTitle = titleField.text!
+//        } else if textField.tag == 2 {
+//            postText = textField.text!
+//        }
+        postTitle = titleField.text!
         textField.resignFirstResponder()
         return true
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if (self.textView.isFirstResponder) {
+            self.textView.resignFirstResponder()
+        }
+    }
+    
     @IBAction func postAC(_ sender: Any) {
+        self.postText = textView.text!
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         let parameters: [String: Any] = [
             "author_id": self.id!,
@@ -48,7 +55,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate {
             "text": self.postText,
             ]
         
-        Alamofire.request("https://f853a982.ngrok.io/api/posts/",
+        Alamofire.request("https://acdb8ae1.ngrok.io/api/posts/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
