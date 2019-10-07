@@ -1,15 +1,15 @@
 //
-//  NewPostViewController.swift
+//  EditPostViewController.swift
 //  cheer_ios
 //
-//  Created by 梶原大進 on 2019/10/04.
+//  Created by 梶原大進 on 2019/10/07.
 //  Copyright © 2019年 梶原大進. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textView: UITextView!
     
@@ -17,12 +17,13 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     var username: String?
     var email: String?
     var token: String = ""
+    var postId: Int = 0
     var postTitle: String = ""
     var postText: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         titleField.delegate = self
     }
     
@@ -42,12 +43,11 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         self.postText = textView.text!
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         let parameters: [String: Any] = [
-            "author_id": self.id!,
             "title": self.postTitle,
             "text": self.postText,
             ]
         
-        Alamofire.request("https://3419f63e.ngrok.io/api/posts/",
+        Alamofire.request("https://3419f63e.ngrok.io/api/posts/"+String(self.postId),
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,

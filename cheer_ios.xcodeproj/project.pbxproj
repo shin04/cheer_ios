@@ -18,6 +18,7 @@
 		16ABF92122FE6F0B0036F215 /* cheer_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF92022FE6F0B0036F215 /* cheer_iosTests.swift */; };
 		16ABF92C22FE6F0B0036F215 /* cheer_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF92B22FE6F0B0036F215 /* cheer_iosUITests.swift */; };
 		16B81E062339B2C00022861F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B81E052339B2C00022861F /* LoginViewController.swift */; };
+		16D0ED18234AD516003D3FE4 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */; };
 		16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */; };
 		2202EE7B22E8C2017B3ECE9B /* Pods_cheer_iosUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23A027A31E8C51E1906FE5DE /* Pods_cheer_iosUITests.framework */; };
 		745D0F66E3D075C9EB1A5942 /* Pods_cheer_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 305CBC31A962071924C1A37B /* Pods_cheer_ios.framework */; };
@@ -59,6 +60,7 @@
 		16ABF92B22FE6F0B0036F215 /* cheer_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cheer_iosUITests.swift; sourceTree = "<group>"; };
 		16ABF92D22FE6F0B0036F215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B81E052339B2C00022861F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		23A027A31E8C51E1906FE5DE /* Pods_cheer_iosUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cheer_iosUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		274F1B6C098909C5A96C1DEB /* Pods_cheer_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cheer_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,7 @@
 				162C5F6B2344D5A600397D89 /* SignUpViewController.swift */,
 				161E5C2E2345877000BB6DCE /* MypageViewController.swift */,
 				1671749F2346CEA400C3FA93 /* NewPostViewController.swift */,
+				16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */,
 				16ABF90F22FE6F090036F215 /* Main.storyboard */,
 				16ABF91222FE6F0B0036F215 /* Assets.xcassets */,
 				16ABF91422FE6F0B0036F215 /* LaunchScreen.storyboard */,
@@ -410,6 +413,7 @@
 			files = (
 				16B81E062339B2C00022861F /* LoginViewController.swift in Sources */,
 				16ABF90E22FE6F090036F215 /* ViewController.swift in Sources */,
+				16D0ED18234AD516003D3FE4 /* EditPostViewController.swift in Sources */,
 				16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */,
 				167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */,
 				161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */,
