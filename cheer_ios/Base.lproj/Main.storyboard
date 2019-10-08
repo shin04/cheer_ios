@@ -359,6 +359,14 @@
                                     <action selector="postAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="n5T-3b-OsT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPo-VS-SAA">
+                                <rect key="frame" x="172" y="390" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="投稿"/>
+                                <connections>
+                                    <action selector="postAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="cUB-4U-1Ls"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ifd-P6-2Cf">
                                 <rect key="frame" x="67" y="180" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -366,12 +374,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPo-VS-SAA">
-                                <rect key="frame" x="172" y="390" width="31" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAf-Mb-NuT">
+                                <rect key="frame" x="172" y="428" width="31" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="投稿"/>
+                                <state key="normal" title="削除"/>
                                 <connections>
-                                    <action selector="postAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="cUB-4U-1Ls"/>
+                                    <action selector="deleteAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="3zw-iH-k1S"/>
                                 </connections>
                             </button>
                         </subviews>

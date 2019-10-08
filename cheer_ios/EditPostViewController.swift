@@ -45,6 +45,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
     
     @IBAction func postAC(_ sender: Any) {
+        self.postText = textView.text!
         var parameters: [String: Any] = [
             "author_id": self.id!,
             "title": self.postTitle,
@@ -57,15 +58,31 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
             self.publish_date = formatter.string(from: now)
             parameters.updateValue(self.publish_date!, forKey: "published_date")
         }
-        
-        self.postText = textView.text!
+
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         
-        Alamofire.request("https://f988b296.ngrok.io/api/posts/\(String(self.postId))/",
+        Alamofire.request("https://2f81c971.ngrok.io/api/posts/\(String(self.postId))/",
                           method: .put,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
                           headers: headers)
+            .responseJSON { response in
+                do {
+                    let result = response.result.value
+                    print(result!)
+                } catch {
+                    print(error)
+                }
+        }
+    }
+    
+    @IBAction func deleteAC(_ sender: Any) {
+        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
+        Alamofire.request("https://2f81c971.ngrok.io/api/posts/\(String(self.postId))/",
+            method: .delete,
+            parameters: nil,
+            encoding: JSONEncoding.default,
+            headers: headers)
             .responseJSON { response in
                 do {
                     let result = response.result.value

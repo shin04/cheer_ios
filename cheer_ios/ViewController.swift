@@ -45,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://f988b296.ngrok.io/"
+    let url: String = "https://2f81c971.ngrok.io/"
     var posts: [Post]?
     var drafts: [Post]?
     var comments: [Comment]?

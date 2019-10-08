@@ -85,14 +85,17 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost") as! EditPostViewController
-        edit.id = posts![indexPath.row].id
+        edit.id = self.id
+        edit.token = self.token
         if indexPath.section == 0 {
+            edit.postId = posts![indexPath.row].id
             edit.postTitle = posts![indexPath.row].title
             edit.postText = posts![indexPath.row].text
             edit.username = posts![indexPath.row].author.username
         } else if indexPath.section == 1 {
             edit.comment = comments![indexPath.row].text
         } else {
+            edit.postId = drafts![indexPath.row].id
             edit.postTitle = drafts![indexPath.row].title
             edit.postText = drafts![indexPath.row].text
             edit.username = drafts![indexPath.row].author.username
@@ -101,7 +104,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData() {
-        Alamofire.request("https://f988b296.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request("https://2f81c971.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }
