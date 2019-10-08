@@ -84,23 +84,24 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
+        let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost") as! EditPostViewController
+        edit.id = posts![indexPath.row].id
         if indexPath.section == 0 {
-            postDetail.postTitle = posts![indexPath.row].title
-            postDetail.postText = posts![indexPath.row].text
-            postDetail.username = posts![indexPath.row].author.username
+            edit.postTitle = posts![indexPath.row].title
+            edit.postText = posts![indexPath.row].text
+            edit.username = posts![indexPath.row].author.username
         } else if indexPath.section == 1 {
-            postDetail.comment = comments![indexPath.row].text
+            edit.comment = comments![indexPath.row].text
         } else {
-            postDetail.postTitle = drafts![indexPath.row].title
-            postDetail.postText = drafts![indexPath.row].text
-            postDetail.username = drafts![indexPath.row].author.username
+            edit.postTitle = drafts![indexPath.row].title
+            edit.postText = drafts![indexPath.row].text
+            edit.username = drafts![indexPath.row].author.username
         }
-        self.navigationController?.pushViewController(postDetail, animated: true)
+        self.navigationController?.pushViewController(edit, animated: true)
     }
     
     func loadData() {
-        Alamofire.request("https://3419f63e.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request("https://f988b296.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }

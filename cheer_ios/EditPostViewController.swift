@@ -20,11 +20,16 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     var postId: Int = 0
     var postTitle: String = ""
     var postText: String = ""
+    var publish_date: String?
+    var comment: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         titleField.delegate = self
+        
+        self.titleField.text = self.postTitle
+        self.textView.text = self.postText
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -40,15 +45,24 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     }
     
     @IBAction func postAC(_ sender: Any) {
-        self.postText = textView.text!
-        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
+            "author_id": self.id!,
             "title": self.postTitle,
             "text": self.postText,
             ]
         
-        Alamofire.request("https://3419f63e.ngrok.io/api/posts/"+String(self.postId),
-                          method: .post,
+        if (sender as AnyObject).tag == 2 {
+            let now = Date()
+            let formatter = ISO8601DateFormatter()
+            self.publish_date = formatter.string(from: now)
+            parameters.updateValue(self.publish_date!, forKey: "published_date")
+        }
+        
+        self.postText = textView.text!
+        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
+        
+        Alamofire.request("https://f988b296.ngrok.io/api/posts/\(String(self.postId))/",
+                          method: .put,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
                           headers: headers)

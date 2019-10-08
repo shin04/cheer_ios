@@ -8,6 +8,11 @@
 
 import UIKit
 import Alamofire
+import Foundation
+
+struct Message: Codable {
+    let status: String
+}
 
 class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet var titleField: UITextField!
@@ -19,6 +24,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     var token: String = ""
     var postTitle: String = ""
     var postText: String = ""
+    var publish_date: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +45,30 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     }
     
     @IBAction func postAC(_ sender: Any) {
-        self.postText = textView.text!
-        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
-        let parameters: [String: Any] = [
+        var parameters: [String: Any] = [
             "author_id": self.id!,
             "title": self.postTitle,
             "text": self.postText,
-            ]
+        ]
         
-        Alamofire.request("https://3419f63e.ngrok.io/api/posts/",
+        if (sender as AnyObject).tag == 2 {
+            let now = Date()
+            let formatter = ISO8601DateFormatter()
+            self.publish_date = formatter.string(from: now)
+            parameters.updateValue(self.publish_date!, forKey: "published_date")
+        }
+        
+//        let parameters: [String: Any] = [
+//            "author_id": self.id!,
+//            "title": self.postTitle,
+//            "text": self.postText,
+//            "published_date": self.publish_date!
+//        ]
+        
+        self.postText = textView.text!
+        let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
+        
+        Alamofire.request("https://f988b296.ngrok.io/api/posts/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
