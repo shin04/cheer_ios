@@ -32,6 +32,7 @@ struct Post: Codable {
 }
 
 struct Comment: Codable {
+    let id: Int
     let post: Post
     let author: String?
     let text: String?
@@ -45,10 +46,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://2f81c971.ngrok.io/"
+    let url: String = "https://72b6c690.ngrok.io/"
     var posts: [Post]?
     var drafts: [Post]?
-    var comments: [Comment]?
     var token: String = ""
     var header: [String: String]?
     var id: Int?
@@ -97,6 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
         let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
+        postDetail.postId = posts![indexPath.row].id
         postDetail.postTitle = posts![indexPath.row].title
         postDetail.postText = posts![indexPath.row].text
         postDetail.username = posts![indexPath.row].author.username
@@ -148,19 +149,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.posts = posts
                 self.drafts = drafts
                 self.tableView.reloadData()
-            } catch {
-                print(error)
-            }
-        }
-        
-        Alamofire.request(url + "api/comment/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
-            guard let data = response.data else {
-                return
-            }
-            let decoder  = JSONDecoder()
-            do {
-                let comments: [Comment] = try decoder.decode([Comment].self, from: data)
-                self.comments = comments
             } catch {
                 print(error)
             }

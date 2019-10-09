@@ -104,7 +104,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData() {
-        Alamofire.request("https://2f81c971.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request("https://72b6c690.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }

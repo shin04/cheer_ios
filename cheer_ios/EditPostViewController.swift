@@ -61,7 +61,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
 
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         
-        Alamofire.request("https://2f81c971.ngrok.io/api/posts/\(String(self.postId))/",
+        Alamofire.request("https://72b6c690.ngrok.io/api/posts/\(String(self.postId))/",
                           method: .put,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
@@ -78,7 +78,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     
     @IBAction func deleteAC(_ sender: Any) {
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
-        Alamofire.request("https://2f81c971.ngrok.io/api/posts/\(String(self.postId))/",
+        Alamofire.request("https://72b6c690.ngrok.io/api/posts/\(String(self.postId))/",
             method: .delete,
             parameters: nil,
             encoding: JSONEncoding.default,

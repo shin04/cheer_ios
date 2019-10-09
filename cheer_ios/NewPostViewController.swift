@@ -57,7 +57,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         
-        Alamofire.request("https://2f81c971.ngrok.io/api/posts/",
+        Alamofire.request("https://72b6c690.ngrok.io/api/posts/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
