@@ -275,6 +275,9 @@
                                 <rect key="frame" x="141" y="415" width="92" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="コメントする"/>
+                                <connections>
+                                    <action selector="post_comment" destination="98r-6v-Pc2" eventType="touchUpInside" id="Qac-ss-lAX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

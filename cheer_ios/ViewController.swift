@@ -98,6 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.deselectRow(at: indexPath, animated: true)
         let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
         postDetail.postId = posts![indexPath.row].id
+        postDetail.token = self.token
         postDetail.postTitle = posts![indexPath.row].title
         postDetail.postText = posts![indexPath.row].text
         postDetail.username = posts![indexPath.row].author.username
