@@ -21,7 +21,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var username: String?
     var email: String?
     var token: String = ""
-    var header: [String: String]?
+    //var header: [String: String]?
     var sectionTitles: [String] = ["投稿", "応援一覧", "草稿"]
 
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.header?.updateValue(self.token, forKey: "token")
+        //self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
     }
     
@@ -106,7 +106,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData() {
-        Alamofire.request(url + "api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request(url + "api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
             guard let data = response.data else {
                 return
             }
@@ -124,6 +124,20 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 self.posts = posts
                 self.drafts = drafts
+                self.tableView.reloadData()
+            } catch {
+                print(error)
+            }
+        }
+        
+        Alamofire.request(url + "api/usercomment", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let comments: [Comment] = try decoder.decode([Comment].self, from: data)
+                self.comments = comments
                 self.tableView.reloadData()
             } catch {
                 print(error)

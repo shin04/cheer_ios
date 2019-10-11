@@ -9,10 +9,11 @@
 import UIKit
 import Alamofire
 
-class PostDetailViewController: UIViewController {
+class PostDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var commentTableView: UITableView!
     
     var url = CheerUrl.shared.baseUrl
     
@@ -23,15 +24,34 @@ class PostDetailViewController: UIViewController {
     var token: String = ""
     
     var comments: [Comment]?
+    var comment_index: [Int] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        commentTableView.delegate = self
+        commentTableView.dataSource = self
         
         self.titleLabel.text = postTitle
         self.textLabel.text = postText
         self.usernameLabel.text = username
         
         self.load_comment()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (comment_index.count != 0) {
+            return comment_index.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.text = comments![comment_index[indexPath.row]].text
+        
+        return cell
     }
     
     func load_comment() {
@@ -43,7 +63,14 @@ class PostDetailViewController: UIViewController {
             do {
                 let comments: [Comment] = try decoder.decode([Comment].self, from: data)
                 self.comments = comments
-                print(self.comments!)
+                if comments.count != 0 {
+                    for i in 0 ..< comments.count {
+                        if comments[i].text != "" {
+                            self.comment_index.append(i)
+                        }
+                    }
+                }
+                self.commentTableView.reloadData()
             } catch {
                 print(error)
             }
