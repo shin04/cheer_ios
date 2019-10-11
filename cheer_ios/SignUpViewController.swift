@@ -15,6 +15,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var confirmField: UITextField!
     
+    var url = CheerUrl.shared.baseUrl
+    
     var username: String?
     var email: String?
     var password: String?
@@ -59,7 +61,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 "password2": confirm!,
                 ]
             
-            Alamofire.request("https://72b6c690.ngrok.io/api/rest-auth/registration/",
+            Alamofire.request(url + "api/rest-auth/registration/",
                               method: .post,
                               parameters: parameters,
                               encoding: JSONEncoding.default, headers: nil)

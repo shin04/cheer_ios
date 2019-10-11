@@ -14,6 +14,8 @@ class PostDetailViewController: UIViewController {
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
     
+    var url = CheerUrl.shared.baseUrl
+    
     var postId: Int!
     var postTitle: String!
     var postText: String!
@@ -33,7 +35,7 @@ class PostDetailViewController: UIViewController {
     }
     
     func load_comment() {
-        Alamofire.request("https://72b6c690.ngrok.io/api/postcomment/?query_param=\(String(self.postId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+        Alamofire.request(url + "api/postcomment/?query_param=\(String(self.postId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
             guard let data = response.data else {
                 return
             }

@@ -12,6 +12,8 @@ import Alamofire
 class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
     
+    var url = CheerUrl.shared.baseUrl
+    
     var posts: [Post]?
     var drafts: [Post]?
     var comments: [Comment]?
@@ -104,7 +106,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loadData() {
-        Alamofire.request("https://72b6c690.ngrok.io/api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request(url + "api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
             guard let data = response.data else {
                 return
             }

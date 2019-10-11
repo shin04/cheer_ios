@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     
-    let url: String = "https://72b6c690.ngrok.io/"
+    var url = CheerUrl.shared.baseUrl
     var posts: [Post]?
     var drafts: [Post]?
     var token: String = ""

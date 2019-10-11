@@ -13,6 +13,8 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textView: UITextView!
     
+    var url = CheerUrl.shared.baseUrl
+    
     var id: Int?
     var username: String?
     var email: String?
@@ -61,7 +63,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
 
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         
-        Alamofire.request("https://72b6c690.ngrok.io/api/posts/\(String(self.postId))/",
+        Alamofire.request(url + "api/posts/\(String(self.postId))/",
                           method: .put,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
@@ -78,7 +80,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     
     @IBAction func deleteAC(_ sender: Any) {
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
-        Alamofire.request("https://72b6c690.ngrok.io/api/posts/\(String(self.postId))/",
+        Alamofire.request(url + "api/posts/\(String(self.postId))/",
             method: .delete,
             parameters: nil,
             encoding: JSONEncoding.default,

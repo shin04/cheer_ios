@@ -14,6 +14,8 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textView: UITextView!
     
+    var url = CheerUrl.shared.baseUrl
+    
     var id: Int?
     var username: String?
     var email: String?
@@ -57,7 +59,7 @@ class NewPostViewController: UIViewController, UITextFieldDelegate, UITextViewDe
         
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         
-        Alamofire.request("https://72b6c690.ngrok.io/api/posts/",
+        Alamofire.request(url + "api/posts/",
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
