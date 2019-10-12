@@ -182,11 +182,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVa-3I-09H" customClass="SwipeCardView" customModule="cheer_ios" customModuleProvider="target">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rh-3MW" customClass="SwipeCardView" customModule="cheer_ios" customModuleProvider="target">
                                 <rect key="frame" x="37" y="183" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3lK-B0-8ZN" appends="YES" id="S4B-fe-FOp"/>
+                                </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kC0-gG-p9s">
+                                <rect key="frame" x="170" y="507" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="reset"/>
+                                <connections>
+                                    <action selector="restAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9K4-T4-HRM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -196,12 +208,17 @@
                         <outlet property="loginBtn" destination="sUo-Sg-qie" id="v1I-O9-Riq"/>
                         <outlet property="mypageBtn" destination="rSz-LV-HFR" id="LUp-wd-7ds"/>
                         <outlet property="registerBtn" destination="mNS-gs-gdk" id="nY2-tI-FWq"/>
-                        <outlet property="swipeCard" destination="FVa-3I-09H" id="GZc-Ge-U5N"/>
+                        <outlet property="swipeCard" destination="DeT-rh-3MW" id="Xpk-4z-jMN"/>
                         <outlet property="tableView" destination="4Z9-3n-lgd" id="OW8-vf-hXx"/>
                         <outlet property="usernameLabel" destination="oGL-zz-Pof" id="K1O-E0-a8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="3lK-B0-8ZN">
+                    <connections>
+                        <action selector="panCard:" destination="BYZ-38-t0r" id="NEc-cq-aLL"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>

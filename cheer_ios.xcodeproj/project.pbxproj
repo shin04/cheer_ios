@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		160501982351F387008E009D /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160501972351F387008E009D /* SwipeCardView.swift */; };
 		1605019A2351F613008E009D /* SwipeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 160501992351F613008E009D /* SwipeCard.xib */; };
+		1605019E235219D4008E009D /* images in Resources */ = {isa = PBXBuildFile; fileRef = 1605019D235219D4008E009D /* images */; };
 		161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E5C2E2345877000BB6DCE /* MypageViewController.swift */; };
 		162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5F6B2344D5A600397D89 /* SignUpViewController.swift */; };
 		167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1671749F2346CEA400C3FA93 /* NewPostViewController.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		160501972351F387008E009D /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
 		160501992351F613008E009D /* SwipeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeCard.xib; sourceTree = "<group>"; };
+		1605019D235219D4008E009D /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		161E5C2E2345877000BB6DCE /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		162C5F6B2344D5A600397D89 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1671749F2346CEA400C3FA93 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		16ABF90A22FE6F090036F215 /* cheer_ios */ = {
 			isa = PBXGroup;
 			children = (
+				1605019D235219D4008E009D /* images */,
 				16ABF90B22FE6F090036F215 /* AppDelegate.swift */,
 				160501972351F387008E009D /* SwipeCardView.swift */,
 				160501992351F613008E009D /* SwipeCard.xib */,
@@ -297,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1605019E235219D4008E009D /* images in Resources */,
 				1605019A2351F613008E009D /* SwipeCard.xib in Resources */,
 				16ABF91622FE6F0B0036F215 /* LaunchScreen.storyboard in Resources */,
 				16ABF91322FE6F0B0036F215 /* Assets.xcassets in Resources */,

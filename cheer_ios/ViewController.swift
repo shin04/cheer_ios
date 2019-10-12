@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
-    @IBOutlet var swipeCard: UIView!
+    @IBOutlet var swipeCard: SwipeCardView!
     
     var url = CheerUrl.shared.baseUrl
     var posts: [Post]?
@@ -57,13 +57,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var username: String = ""
     var email:String = ""
     
+    var divisor: CGFloat! // swipe card の角度の計算用
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        divisor = (view.frame.width) / 2 / 0.61 // swipe card の角度の計算用
         
-        self.swipeCard.isUserInteractionEnabled = true
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        swipeCard.cheerImageView.alpha = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,36 +84,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
-    }
-    
-    // 画面にタッチで呼ばれる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
-    }
-    
-    //　ドラッグ時に呼ばれる
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // タッチイベントを取得
-        let touchEvent = touches.first!
-        // ドラッグ前の座標
-        let preDx = touchEvent.previousLocation(in: self.view).x
-        let preDy = touchEvent.previousLocation(in: self.view).y
-        // ドラッグ後の座標
-        let newDx = touchEvent.location(in: self.view).x
-        let newDy = touchEvent.location(in: self.view).y
-        // ドラッグしたx座標の移動距離
-        let dx = newDx - preDx
-        // ドラッグしたy座標の移動距離
-        let dy = newDy - preDy
-        // フレーム
-        var viewFrame: CGRect = swipeCard.frame
-        // 移動分を反映させる
-        viewFrame.origin.x += dx
-        viewFrame.origin.y += dy
-        
-        swipeCard.frame = viewFrame
-        
-        self.view.addSubview(swipeCard)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -190,6 +164,68 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } catch {
                 print(error)
             }
+        }
+    }
+    
+    func resetCard() {
+        UIView.animate(withDuration: 0.2) {
+            self.swipeCard.center = self.view.center
+            self.swipeCard.alpha = 1
+            self.swipeCard.cheerImageView.alpha = 0
+            self.swipeCard.transform = .identity
+        }
+    }
+    
+    @IBAction func restAC(_ sender: UIButton) {
+        self.resetCard()
+    }
+    
+    @IBAction func panCard(_ sender: UIPanGestureRecognizer) {
+        let card = sender.view!
+        let point = sender.translation(in: view)
+        let xFromCenter = card.center.x - view.center.x // カードの中心とviewの中心の距離
+        
+        card.center = CGPoint(x: view.center.x + point.x, y: view.center.y + point.y)
+        
+        // 回転
+        card.transform = CGAffineTransform(rotationAngle: xFromCenter/divisor)
+        
+        if xFromCenter > 0 {
+            // 右にドラッグされたら応援
+            swipeCard.cheerImageView.image = UIImage(named: "cheer")
+            swipeCard.cheerImageView.tintColor = UIColor.green
+        } else {
+            // 左にドラッグされたら応援しない
+            swipeCard.cheerImageView.image = UIImage(named: "not_cheer")
+            swipeCard.cheerImageView.tintColor = UIColor.red
+        }
+        
+        swipeCard.cheerImageView.alpha = abs(xFromCenter) / view.center.x
+        
+        if sender.state == UIGestureRecognizer.State.ended {
+            
+            if card.center.x < 75 {
+                // 左側に消える
+                UIView.animate(withDuration: 0.3, animations: {
+                    card.center = CGPoint(x: card.center.x - 200, y: card.center.y + 75)
+                    card.alpha = 0
+                })
+                return
+            } else if card.center.x > (view.frame.width - 75) {
+                //右側に消える
+                UIView.animate(withDuration: 0.3) {
+                    card.center = CGPoint(x: card.center.x + 200, y: card.center.y + 75)
+                    card.alpha = 0
+                }
+                return
+            }
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                card.center = self.view.center
+                self.swipeCard.cheerImageView.alpha = 0
+            })
+            
+            self.resetCard()
         }
     }
     
