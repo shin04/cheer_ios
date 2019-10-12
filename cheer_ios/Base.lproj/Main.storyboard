@@ -182,6 +182,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXD-yk-74P" customClass="SwipeCardView" customModule="cheer_ios" customModuleProvider="target">
+                                <rect key="frame" x="42" y="178" width="300" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeT-rh-3MW" customClass="SwipeCardView" customModule="cheer_ios" customModuleProvider="target">
                                 <rect key="frame" x="37" y="183" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -209,6 +215,7 @@
                         <outlet property="mypageBtn" destination="rSz-LV-HFR" id="LUp-wd-7ds"/>
                         <outlet property="registerBtn" destination="mNS-gs-gdk" id="nY2-tI-FWq"/>
                         <outlet property="swipeCard" destination="DeT-rh-3MW" id="Xpk-4z-jMN"/>
+                        <outlet property="swipeCard2" destination="MXD-yk-74P" id="suI-UL-raq"/>
                         <outlet property="tableView" destination="4Z9-3n-lgd" id="OW8-vf-hXx"/>
                         <outlet property="usernameLabel" destination="oGL-zz-Pof" id="K1O-E0-a8c"/>
                     </connections>

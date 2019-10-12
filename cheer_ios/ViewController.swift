@@ -47,6 +47,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var swipeCard: SwipeCardView!
+    @IBOutlet var swipeCard2: SwipeCardView!
     
     var url = CheerUrl.shared.baseUrl
     var posts: [Post]?
@@ -68,6 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         
         swipeCard.cheerImageView.alpha = 0
+        swipeCard2.cheerImageView.alpha = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,7 +170,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func resetCard() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0) {
             self.swipeCard.center = self.view.center
             self.swipeCard.alpha = 1
             self.swipeCard.cheerImageView.alpha = 0
@@ -203,7 +205,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         swipeCard.cheerImageView.alpha = abs(xFromCenter) / view.center.x
         
         if sender.state == UIGestureRecognizer.State.ended {
-            
             if card.center.x < 75 {
                 // 左側に消える
                 UIView.animate(withDuration: 0.3, animations: {
@@ -224,7 +225,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 card.center = self.view.center
                 self.swipeCard.cheerImageView.alpha = 0
             })
-            
             self.resetCard()
         }
     }
