@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 class CheerUrl {
-    var baseUrl: String = "https://8e259d80.ngrok.io/"
+    var baseUrl: String = "https://592062c5.ngrok.io/"
     static let shared = CheerUrl()
     
     private init() {}

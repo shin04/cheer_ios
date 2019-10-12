@@ -29,6 +29,7 @@ struct Post: Codable {
     let text: String
     let created_date: String
     let published_date: String?
+    let achievement: Bool
 }
 
 struct Comment: Codable {
@@ -102,6 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         postDetail.postTitle = posts![indexPath.row].title
         postDetail.postText = posts![indexPath.row].text
         postDetail.username = posts![indexPath.row].author.username
+        postDetail.achievement = false
         self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
@@ -141,9 +143,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 var posts: [Post] = []
                 var drafts: [Post] = []
                 for post in allposts {
-                    if post.published_date != nil {
+                    if post.achievement == false && post.published_date != nil {
                         posts.append(post)
-                    } else {
+                    } else if post.achievement == false && post.published_date == nil {
                         drafts.append(post)
                     }
                 }

@@ -14,6 +14,7 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var commentTableView: UITableView!
+    @IBOutlet var cheerBtn: UIButton!
     
     var url = CheerUrl.shared.baseUrl
     
@@ -21,6 +22,7 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var postTitle: String!
     var postText: String!
     var username: String!
+    var achievement: Bool!
     var token: String = ""
     
     var comments: [Comment]?
@@ -35,6 +37,10 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.titleLabel.text = postTitle
         self.textLabel.text = postText
         self.usernameLabel.text = username
+        
+        if achievement == true {
+            self.cheerBtn.alpha = 0
+        }
         
         self.load_comment()
     }

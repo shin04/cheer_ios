@@ -16,13 +16,14 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var posts: [Post]?
     var drafts: [Post]?
+    var achievePosts: [Post]?
     var comments: [Comment]?
     var id: Int?
     var username: String?
     var email: String?
     var token: String = ""
     //var header: [String: String]?
-    var sectionTitles: [String] = ["投稿", "応援一覧", "草稿"]
+    var sectionTitles: [String] = ["投稿", "応援一覧", "草稿", "達成した目標"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -57,9 +58,15 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             } else {
                 return 0
             }
-        } else {
+        } else if section == 2 {
             if ((drafts?.count) != nil) {
                 return (drafts?.count)!
+            } else {
+                return 0
+            }
+        } else {
+            if ((achievePosts?.count) != nil) {
+                return (achievePosts?.count)!
             } else {
                 return 0
             }
@@ -77,9 +84,13 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.textLabel!.text = comments?[indexPath.row].text
             
             return cell
-        } else {
+        } else if indexPath.section == 2{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel!.text = drafts?[indexPath.row].title
+            return cell
+        } else {
+            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+            cell.textLabel!.text = achievePosts?[indexPath.row].title
             return cell
         }
     }
@@ -87,6 +98,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost") as! EditPostViewController
+        let detail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
         edit.id = self.id
         edit.token = self.token
         if indexPath.section == 0 {
@@ -94,15 +106,29 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             edit.postTitle = posts![indexPath.row].title
             edit.postText = posts![indexPath.row].text
             edit.username = posts![indexPath.row].author.username
+            self.toPostEditOrDetail(view: edit)
         } else if indexPath.section == 1 {
             edit.comment = comments![indexPath.row].text
-        } else {
+            self.toPostEditOrDetail(view: edit)
+        } else if indexPath.section == 2{
             edit.postId = drafts![indexPath.row].id
             edit.postTitle = drafts![indexPath.row].title
             edit.postText = drafts![indexPath.row].text
             edit.username = drafts![indexPath.row].author.username
+            self.toPostEditOrDetail(view: edit)
+        } else {
+            detail.postId = achievePosts![indexPath.row].id
+            detail.token = self.token
+            detail.postTitle = achievePosts![indexPath.row].title
+            detail.postText = achievePosts![indexPath.row].text
+            detail.username = achievePosts![indexPath.row].author.username
+            detail.achievement = true
+            self.toPostEditOrDetail(view: detail)
         }
-        self.navigationController?.pushViewController(edit, animated: true)
+    }
+    
+    func toPostEditOrDetail(view: UIViewController) {
+        self.navigationController?.pushViewController(view, animated: true)
     }
     
     func loadData() {
@@ -115,8 +141,11 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let allposts: [Post] = try decoder.decode([Post].self, from: data)
                 var posts: [Post] = []
                 var drafts: [Post] = []
+                var achievePosts: [Post] = []
                 for post in allposts {
-                    if post.published_date != nil {
+                    if post.achievement == true {
+                        achievePosts.append(post)
+                    } else if post.published_date != nil {
                         posts.append(post)
                     } else {
                         drafts.append(post)
@@ -124,6 +153,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 self.posts = posts
                 self.drafts = drafts
+                self.achievePosts = achievePosts
                 self.tableView.reloadData()
             } catch {
                 print(error)
