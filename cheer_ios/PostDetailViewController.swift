@@ -97,8 +97,11 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 "text": commentField.text!,
                 ]
             
-            let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
-            print(headers)
+            var headers = [String: String]()
+            if self.token != "" {
+                //let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
+                headers.updateValue("", forKey: "Cookie")
+            }
             
             Alamofire.request(self.url + "api/comment/",
                               method: .post,
