@@ -294,6 +294,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waY-U9-eYn">
+                                <rect key="frame" x="313" y="70" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="編集"/>
+                                <connections>
+                                    <action selector="toEditAC:" destination="98r-6v-Pc2" eventType="touchUpInside" id="zPA-HA-FUT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="fu6-YC-smv"/>
@@ -301,6 +309,7 @@
                     <connections>
                         <outlet property="cheerBtn" destination="9vY-KR-J6q" id="8Ta-5k-Ukw"/>
                         <outlet property="commentTableView" destination="MEW-c8-usk" id="gBo-yR-xIR"/>
+                        <outlet property="editBtn" destination="waY-U9-eYn" id="baW-wQ-TYc"/>
                         <outlet property="textLabel" destination="ot7-dW-gMN" id="JB5-2X-IOB"/>
                         <outlet property="titleLabel" destination="u1H-ZV-Jw4" id="tOS-BF-0Vu"/>
                         <outlet property="usernameLabel" destination="67I-Wv-owh" id="zsB-UN-tba"/>
@@ -405,6 +414,14 @@
                                 <state key="normal" title="削除"/>
                                 <connections>
                                     <action selector="deleteAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="3zw-iH-k1S"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yFc-cf-98H">
+                                <rect key="frame" x="172" y="466" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="達成"/>
+                                <connections>
+                                    <action selector="postAC:" destination="Sh9-sg-jDi" eventType="touchUpInside" id="pYi-jV-gA7"/>
                                 </connections>
                             </button>
                         </subviews>

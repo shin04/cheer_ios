@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var drafts: [Post]?
     var token: String = ""
     var header: [String: String]?
-    var id: Int?
+    var id: Int? // ユーザID
     var username: String = ""
     var email:String = ""
     
@@ -100,6 +100,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
         postDetail.postId = posts![indexPath.row].id
         postDetail.token = self.token
+        postDetail.user = self.username
+        postDetail.userId = self.id
         postDetail.postTitle = posts![indexPath.row].title
         postDetail.postText = posts![indexPath.row].text
         postDetail.username = posts![indexPath.row].author.username

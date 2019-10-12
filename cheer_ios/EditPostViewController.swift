@@ -15,7 +15,7 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
     
     var url = CheerUrl.shared.baseUrl
     
-    var id: Int?
+    var id: Int? // ログイン中のユーザのID
     var username: String?
     var email: String?
     var token: String = ""
@@ -59,6 +59,8 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
             let formatter = ISO8601DateFormatter()
             self.publish_date = formatter.string(from: now)
             parameters.updateValue(self.publish_date!, forKey: "published_date")
+        } else if (sender as AnyObject).tag == 3 {
+            parameters.updateValue(true, forKey: "achievement")
         }
 
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]

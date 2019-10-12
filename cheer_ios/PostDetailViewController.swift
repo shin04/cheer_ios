@@ -15,14 +15,17 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var commentTableView: UITableView!
     @IBOutlet var cheerBtn: UIButton!
+    @IBOutlet var editBtn: UIButton!
     
     var url = CheerUrl.shared.baseUrl
     
+    var userId: Int!
     var postId: Int!
     var postTitle: String!
     var postText: String!
-    var username: String!
+    var username: String! // 投稿したユーザ
     var achievement: Bool!
+    var user: String = "" // ログイン中のユーザ
     var token: String = ""
     
     var comments: [Comment]?
@@ -40,6 +43,11 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if achievement == true {
             self.cheerBtn.alpha = 0
+            self.editBtn.alpha = 0
+        }
+        
+        if self.user != self.username {
+            self.editBtn.alpha = 0
         }
         
         self.load_comment()
@@ -81,6 +89,17 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 print(error)
             }
         }
+    }
+    
+    @IBAction func toEditAC(_ sender: Any) {
+        let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost")  as! EditPostViewController
+        edit.id = self.userId
+        edit.username = self.username
+        edit.token = self.token
+        edit.postId = self.postId
+        edit.postTitle = self.postTitle
+        edit.postText = self.postText
+        self.present(edit, animated: true, completion: nil)
     }
     
     @IBAction func post_comment() {
