@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160501982351F387008E009D /* SwipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160501972351F387008E009D /* SwipeCardView.swift */; };
+		1605019A2351F613008E009D /* SwipeCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 160501992351F613008E009D /* SwipeCard.xib */; };
 		161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E5C2E2345877000BB6DCE /* MypageViewController.swift */; };
 		162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5F6B2344D5A600397D89 /* SignUpViewController.swift */; };
 		167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1671749F2346CEA400C3FA93 /* NewPostViewController.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		160501972351F387008E009D /* SwipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardView.swift; sourceTree = "<group>"; };
+		160501992351F613008E009D /* SwipeCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeCard.xib; sourceTree = "<group>"; };
 		161E5C2E2345877000BB6DCE /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		162C5F6B2344D5A600397D89 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1671749F2346CEA400C3FA93 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				16ABF90B22FE6F090036F215 /* AppDelegate.swift */,
+				160501972351F387008E009D /* SwipeCardView.swift */,
+				160501992351F613008E009D /* SwipeCard.xib */,
 				16ABF90D22FE6F090036F215 /* ViewController.swift */,
 				16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */,
 				16B81E052339B2C00022861F /* LoginViewController.swift */,
@@ -291,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1605019A2351F613008E009D /* SwipeCard.xib in Resources */,
 				16ABF91622FE6F0B0036F215 /* LaunchScreen.storyboard in Resources */,
 				16ABF91322FE6F0B0036F215 /* Assets.xcassets in Resources */,
 				16ABF91122FE6F090036F215 /* Main.storyboard in Resources */,
@@ -419,6 +426,7 @@
 				161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */,
 				16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */,
 				162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */,
+				160501982351F387008E009D /* SwipeCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

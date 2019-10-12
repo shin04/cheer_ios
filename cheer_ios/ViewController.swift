@@ -46,6 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var swipeCard: UIView!
     
     var url = CheerUrl.shared.baseUrl
     var posts: [Post]?
@@ -61,6 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.swipeCard.isUserInteractionEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +80,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
+    }
+    
+    // 画面にタッチで呼ばれる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("touchesBegan")
+    }
+    
+    //　ドラッグ時に呼ばれる
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // タッチイベントを取得
+        let touchEvent = touches.first!
+        // ドラッグ前の座標
+        let preDx = touchEvent.previousLocation(in: self.view).x
+        let preDy = touchEvent.previousLocation(in: self.view).y
+        // ドラッグ後の座標
+        let newDx = touchEvent.location(in: self.view).x
+        let newDy = touchEvent.location(in: self.view).y
+        // ドラッグしたx座標の移動距離
+        let dx = newDx - preDx
+        // ドラッグしたy座標の移動距離
+        let dy = newDy - preDy
+        // フレーム
+        var viewFrame: CGRect = swipeCard.frame
+        // 移動分を反映させる
+        viewFrame.origin.x += dx
+        viewFrame.origin.y += dy
+        
+        swipeCard.frame = viewFrame
+        
+        self.view.addSubview(swipeCard)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
