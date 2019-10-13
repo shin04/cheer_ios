@@ -32,12 +32,16 @@ class SwipeCardView: UIView {
         guard let view = UINib(nibName: "SwipeCard", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView else {
             return
         }
-        
         view.frame = self.bounds
-        
         view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
         self.addSubview(view)
+    }
+    
+    func setCard(post: Post/*, comments: [Comment]*/) {
+        self.authorLabel.text = post.author.username
+        self.titleLabel.text = post.title
+        // 応援の数の表示は後回し
+        //self.cheerLabel.text = "応援：\(String(comments.count))"
     }
     
 }

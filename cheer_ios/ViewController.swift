@@ -58,6 +58,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var username: String = ""
     var email:String = ""
     
+    var currentCardNumber: Int?
+    
     var divisor: CGFloat! // swipe card の角度の計算用
     
     override func viewDidLoad() {
@@ -163,23 +165,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.posts = posts
                 self.drafts = drafts
                 self.tableView.reloadData()
+                self.currentCardNumber = 0
+                self.swipeCard.setCard(post: self.posts![0])
+                self.swipeCard2.setCard(post: self.posts![1])
             } catch {
                 print(error)
             }
         }
     }
     
-    func resetCard() {
-        UIView.animate(withDuration: 0) {
-            self.swipeCard.center = self.view.center
-            self.swipeCard.alpha = 1
-            self.swipeCard.cheerImageView.alpha = 0
-            self.swipeCard.transform = .identity
+    func setSwipeCard() {
+        self.currentCardNumber = self.currentCardNumber! + 1
+        if self.currentCardNumber! + 1 >= (self.posts?.count)! {
+            self.swipeCard.removeFromSuperview()
+        } else {
+            self.swipeCard.setCard(post: self.posts![currentCardNumber!])
+            self.swipeCard2.setCard(post: self.posts![currentCardNumber!+1])
         }
     }
     
-    @IBAction func restAC(_ sender: UIButton) {
-        self.resetCard()
+    func returnCard(duration: Double, card: SwipeCardView) {
+        UIView.animate(withDuration: duration) {
+            card.center = self.view.center
+            card.alpha = 1
+            card.cheerImageView.alpha = 0
+            card.transform = .identity
+        }
     }
     
     @IBAction func panCard(_ sender: UIPanGestureRecognizer) {
@@ -210,22 +221,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 UIView.animate(withDuration: 0.3, animations: {
                     card.center = CGPoint(x: card.center.x - 200, y: card.center.y + 75)
                     card.alpha = 0
+                }, completion: {(finished:Bool) in
+                    self.returnCard(duration: 0, card: card as! SwipeCardView)
+                    self.setSwipeCard()
                 })
                 return
             } else if card.center.x > (view.frame.width - 75) {
                 //右側に消える
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.3, animations: {
                     card.center = CGPoint(x: card.center.x + 200, y: card.center.y + 75)
                     card.alpha = 0
-                }
+                }, completion: {(finished:Bool) in
+                    self.returnCard(duration: 0, card: card as! SwipeCardView)
+                    self.setSwipeCard()
+                })
                 return
             }
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                card.center = self.view.center
-                self.swipeCard.cheerImageView.alpha = 0
-            })
-            self.resetCard()
+            self.returnCard(duration: 0.3, card: card as! SwipeCardView)
         }
     }
     
