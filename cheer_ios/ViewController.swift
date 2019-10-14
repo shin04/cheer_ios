@@ -222,6 +222,10 @@ class ViewController: UIViewController{
     }
     
     @IBAction func toPostDetail(_ sender: UIButton) {
+        if currentCardNumber! >= (posts?.count)! {
+            print("投稿がありません")
+            return
+        }
         let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
         postDetail.postId = posts![currentCardNumber!].id
         postDetail.token = self.token
