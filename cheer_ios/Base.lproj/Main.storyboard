@@ -197,6 +197,30 @@
                                     <outletCollection property="gestureRecognizers" destination="3lK-B0-8ZN" appends="YES" id="S4B-fe-FOp"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKF-H8-ZB4">
+                                <rect key="frame" x="161" y="503" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="応援する"/>
+                                <connections>
+                                    <action selector="cheerBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fHi-JM-13R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF9-6q-9Xd">
+                                <rect key="frame" x="37" y="503" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="応援しない"/>
+                                <connections>
+                                    <action selector="notCheerBtnWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cEl-6c-LXc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLp-dJ-bDH">
+                                <rect key="frame" x="301" y="503" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="詳細"/>
+                                <connections>
+                                    <action selector="toPostDetail:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3b4-rd-vNT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

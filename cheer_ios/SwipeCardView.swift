@@ -14,6 +14,8 @@ class SwipeCardView: UIView {
     @IBOutlet var cheerLabel: UILabel!
     @IBOutlet var cheerImageView: UIImageView!
     
+    
+    
     // コードから生成した時の初期化処理
     override init(frame: CGRect) {
         super.init(frame: frame)
