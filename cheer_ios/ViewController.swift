@@ -40,8 +40,7 @@ struct Comment: Codable {
     let created_date: String
 }
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet var tableView: UITableView!
+class ViewController: UIViewController{
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var mypageBtn: UIButton!
@@ -67,9 +66,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         divisor = (view.frame.width) / 2 / 0.61 // swipe card の角度の計算用
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         swipeCard.cheerImageView.alpha = 0
         swipeCard2.cheerImageView.alpha = 0
     }
@@ -88,36 +84,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (posts?.count != nil) {
-            return (posts!.count)
-        } else {
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = posts![indexPath.row].title
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // セルの選択を解除
-        tableView.deselectRow(at: indexPath, animated: true)
-        let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
-        postDetail.postId = posts![indexPath.row].id
-        postDetail.token = self.token
-        postDetail.user = self.username
-        postDetail.userId = self.id
-        postDetail.postTitle = posts![indexPath.row].title
-        postDetail.postText = posts![indexPath.row].text
-        postDetail.username = posts![indexPath.row].author.username
-        postDetail.achievement = false
-        self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
     func isUser() {
@@ -164,7 +130,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 self.posts = posts
                 self.drafts = drafts
-                self.tableView.reloadData()
                 self.currentCardNumber = 0
                 self.swipeCard.setCard(post: self.posts![0])
                 self.swipeCard2.setCard(post: self.posts![1])
@@ -182,7 +147,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.swipeCard2.cheerLabel.text = ""
             self.swipeCard.setCard(post: self.posts![currentCardNumber!])
         } else if self.currentCardNumber! + 1 > (self.posts?.count)!  {
-            // self.swipeCard.removeFromSuperview()
             self.swipeCard.alpha = 0
         } else {
             self.swipeCard.setCard(post: self.posts![currentCardNumber!])
