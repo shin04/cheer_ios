@@ -168,6 +168,7 @@
                                 <state key="normal" title="login"/>
                                 <connections>
                                     <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TY9-LS-h8P"/>
+                                    <segue destination="ncy-QL-vIr" kind="show" id="aon-gb-KeJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNS-gs-gdk">
@@ -176,6 +177,7 @@
                                 <state key="normal" title="register"/>
                                 <connections>
                                     <action selector="signupAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cd3-Ix-UiE"/>
+                                    <segue destination="j8L-LZ-bGG" kind="show" id="Opw-1H-oXC"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="初めましてゲストさん" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-zz-Pof">

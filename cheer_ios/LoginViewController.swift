@@ -9,11 +9,18 @@
 import UIKit
 import Alamofire
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
-    var token: String?
+protocol LoginViewInterface: class {
+    var parameters: [String: Any]? { get }
+}
+
+class LoginViewController: UIViewController, UITextFieldDelegate, LoginViewInterface {
+    //var token: String?
     
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
+    
+    var parameters: [String : Any]?
+    var presenter: LoginPresenter!
     
     var url = CheerUrl.shared.baseUrl
     
@@ -22,6 +29,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = LoginPresenter(with: self)
         
         usernameTextField.delegate = self
         passwordTextField.delegate = self
@@ -45,26 +54,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "username": username!,
                 "password": password!,
                 ]
+            self.parameters = parameters
             
-            Alamofire.request(url + "api/rest-auth/login/",
-                              method: .post,
-                              parameters: parameters,
-                              encoding: JSONEncoding.default, headers: nil)
-                .responseJSON { response in
-                    do {
-                        let result = response.result.value as? [String: Any]
-                        self.token = result?["key"] as? String
-                        print(result!)
-                        print(self.token!)
-                        
-                        let nav = self.navigationController
-                        let home = nav?.viewControllers[(nav?.viewControllers.count)!-2] as! ViewController
-                        home.token = self.token!
-                        self.navigationController?.popViewController(animated: true)
-                    } catch {
-                        print(error)
-                    }
-            }
+            presenter.loginButtonTapped()
         }
     }
 

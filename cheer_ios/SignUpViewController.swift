@@ -9,11 +9,18 @@
 import UIKit
 import Alamofire
 
-class SignUpViewController: UIViewController, UITextFieldDelegate {
+protocol SignUpViewInterface: class {
+    var parameters: [String: Any]? { get }
+}
+
+class SignUpViewController: UIViewController, UITextFieldDelegate, SignUpViewInterface {
     @IBOutlet var usernameField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var confirmField: UITextField!
+    
+    var parameters: [String : Any]?
+    var presenter: SignUpPresenter!
     
     var url = CheerUrl.shared.baseUrl
     
@@ -26,6 +33,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = SignUpPresenter(with: self)
         
         usernameField.delegate = self
         emailField.delegate = self
@@ -61,25 +70,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 "password2": confirm!,
                 ]
             
-            Alamofire.request(url + "api/rest-auth/registration/",
-                              method: .post,
-                              parameters: parameters,
-                              encoding: JSONEncoding.default, headers: nil)
-                .responseJSON { response in
-                    do {
-                        let result = response.result.value as? [String: Any]
-                        self.token = result?["key"] as? String
-                        print(result!)
-                        print(self.token!)
-                        
-                        let nav = self.navigationController
-                        let home = nav?.viewControllers[(nav?.viewControllers.count)!-2] as! ViewController
-                        home.token = self.token!
-                        self.navigationController?.popViewController(animated: true)
-                    } catch {
-                        print(error)
-                    }
-            }
+            self.parameters = parameters
+            
+            presenter.signupButtonTapped()
         }
     }
 

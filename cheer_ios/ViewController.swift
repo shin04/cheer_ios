@@ -10,18 +10,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-struct Who: Codable {
-    let id: Int?
-    let username: String?
-    let email: String?
-    let token: String?
-}
-
-struct User: Codable {
-    var username: String?
-    var email: String?
-}
-
 struct Post: Codable {
     let id: Int
     let author: User
@@ -87,7 +75,7 @@ class ViewController: UIViewController{
     }
     
     func isUser() {
-        Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { reponse in
+        Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { reponse in
             guard let data = reponse.data else {
                 return
             }
@@ -112,7 +100,7 @@ class ViewController: UIViewController{
     }
     
     func loadData() {
-        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).response { response in
+        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
             guard let data = response.data else {
                 return
             }
