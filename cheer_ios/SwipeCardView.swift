@@ -40,6 +40,7 @@ class SwipeCardView: UIView {
     }
     
     func setCard(post: Post/*, comments: [Comment]*/) {
+        
         self.authorLabel.text = post.author.username
         self.titleLabel.text = post.title
         // 応援の数の表示は後回し
