@@ -115,7 +115,6 @@
         <!--Item 2-->
         <scene sceneID="nIb-hP-leq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pEx-eK-En8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="crX-oP-czz" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sB5-d3-7Ku">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -125,6 +124,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="GDo-xI-VIe"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pEx-eK-En8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-714" y="-547"/>
         </scene>
