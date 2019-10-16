@@ -15,12 +15,26 @@ class LoginPresenter {
     init(with view: LoginViewInterface) {
         self.view = view
         self.authModel = AuthModel()
-        authModel.delegate = self as? AuthModelDelegate
+        authModel.delegate = self
     }
     
     func loginButtonTapped() {
         guard let parameters = view?.parameters else { return }
         
         authModel.login(parameters: parameters)
+    }
+}
+
+extension LoginPresenter: AuthModelDelegate {
+    func didVerifiedUser(user: Who?) {
+        
+    }
+    
+    func didSignUp(token: String) {
+        
+    }
+    
+    func didLogin(token: String) {
+        view?.toHome()
     }
 }

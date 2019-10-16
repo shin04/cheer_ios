@@ -13,6 +13,7 @@
 		161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161E5C2E2345877000BB6DCE /* MypageViewController.swift */; };
 		162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5F6B2344D5A600397D89 /* SignUpViewController.swift */; };
 		167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1671749F2346CEA400C3FA93 /* NewPostViewController.swift */; };
+		16A2B70223568E9D00105222 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A2B70123568E9D00105222 /* HomePresenter.swift */; };
 		16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF90B22FE6F090036F215 /* AppDelegate.swift */; };
 		16ABF90E22FE6F090036F215 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF90D22FE6F090036F215 /* ViewController.swift */; };
 		16ABF91122FE6F090036F215 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16ABF90F22FE6F090036F215 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		16ABF92C22FE6F0B0036F215 /* cheer_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF92B22FE6F0B0036F215 /* cheer_iosUITests.swift */; };
 		16B81E062339B2C00022861F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B81E052339B2C00022861F /* LoginViewController.swift */; };
 		16D0ED18234AD516003D3FE4 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */; };
+		16D8BD99235758EF0075D35B /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8BD98235758EF0075D35B /* PostModel.swift */; };
 		16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */; };
 		16F324FA2355FFFD003FC7A8 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F324F92355FFFD003FC7A8 /* AuthModel.swift */; };
 		16F324FC23560E32003FC7A8 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F324FB23560E32003FC7A8 /* LoginPresenter.swift */; };
@@ -55,6 +57,7 @@
 		161E5C2E2345877000BB6DCE /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
 		162C5F6B2344D5A600397D89 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1671749F2346CEA400C3FA93 /* NewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewController.swift; sourceTree = "<group>"; };
+		16A2B70123568E9D00105222 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		16ABF90822FE6F090036F215 /* cheer_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cheer_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16ABF90B22FE6F090036F215 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16ABF90D22FE6F090036F215 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		16ABF92D22FE6F0B0036F215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B81E052339B2C00022861F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		16D8BD98235758EF0075D35B /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		16F324F92355FFFD003FC7A8 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		16F324FB23560E32003FC7A8 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
@@ -142,8 +146,10 @@
 				16ABF90B22FE6F090036F215 /* AppDelegate.swift */,
 				160501972351F387008E009D /* SwipeCardView.swift */,
 				160501992351F613008E009D /* SwipeCard.xib */,
-				16ABF90D22FE6F090036F215 /* ViewController.swift */,
 				16F324F92355FFFD003FC7A8 /* AuthModel.swift */,
+				16D8BD98235758EF0075D35B /* PostModel.swift */,
+				16A2B70123568E9D00105222 /* HomePresenter.swift */,
+				16ABF90D22FE6F090036F215 /* ViewController.swift */,
 				16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */,
 				16F324FB23560E32003FC7A8 /* LoginPresenter.swift */,
 				16B81E052339B2C00022861F /* LoginViewController.swift */,
@@ -434,12 +440,14 @@
 				16B81E062339B2C00022861F /* LoginViewController.swift in Sources */,
 				16ABF90E22FE6F090036F215 /* ViewController.swift in Sources */,
 				16D0ED18234AD516003D3FE4 /* EditPostViewController.swift in Sources */,
+				16D8BD99235758EF0075D35B /* PostModel.swift in Sources */,
 				16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */,
 				16F324FC23560E32003FC7A8 /* LoginPresenter.swift in Sources */,
 				167174A02346CEA400C3FA93 /* NewPostViewController.swift in Sources */,
 				16F324FE235611D9003FC7A8 /* SignUpPresenter.swift in Sources */,
 				161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */,
 				16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */,
+				16A2B70223568E9D00105222 /* HomePresenter.swift in Sources */,
 				162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */,
 				160501982351F387008E009D /* SwipeCardView.swift in Sources */,
 				16F324FA2355FFFD003FC7A8 /* AuthModel.swift in Sources */,

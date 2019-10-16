@@ -10,31 +10,19 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-struct Post: Codable {
-    let id: Int
-    let author: User
-    let title: String
-    let text: String
-    let created_date: String
-    let published_date: String?
-    let achievement: Bool
+protocol HomeViewInterface: class {
+    func reloadUserData()
 }
 
-struct Comment: Codable {
-    let id: Int
-    let post: Post
-    let author: String?
-    let text: String?
-    let created_date: String
-}
-
-class ViewController: UIViewController{
+class ViewController: UIViewController, HomeViewInterface {
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var swipeCard: SwipeCardView!
     @IBOutlet var swipeCard2: SwipeCardView!
+    
+    var presenter: HomePresenter!
     
     var url = CheerUrl.shared.baseUrl
     var posts: [Post]?
@@ -45,12 +33,16 @@ class ViewController: UIViewController{
     var username: String = ""
     var email:String = ""
     
+    var loginUser: Who?
+    
     var currentCardNumber: Int?
     
     var divisor: CGFloat! // swipe card の角度の計算用
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = HomePresenter(with: self)
         
         divisor = (view.frame.width) / 2 / 0.61 // swipe card の角度の計算用
         
@@ -60,43 +52,15 @@ class ViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         self.isUser()
-        if self.token != "" {
-            self.loginBtn.alpha = 0
-            self.registerBtn.alpha = 0
-            self.mypageBtn.alpha = 1
-        } else {
-            self.loginBtn.alpha = 1
-            self.registerBtn.alpha = 1
-            self.mypageBtn.alpha = 0
-            self.username = "ゲスト"
-        }
-        self.header?.updateValue(self.token, forKey: "token")
         self.loadData()
     }
     
+    func reloadUserData() {
+        self.usernameLabel.text = "こんにちは、\(presenter.login_user!.username!)さん"
+    }
+    
     func isUser() {
-        Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { reponse in
-            guard let data = reponse.data else {
-                return
-            }
-            let decoder  = JSONDecoder()
-            do {
-                let who: Who = try decoder.decode(Who.self, from: data)
-                self.id = who.id
-                self.username = who.username!
-                self.email = who.email!
-                self.token = who.token!
-                self.usernameLabel.text = "こんにちは、\(self.username)さん"
-                self.loginBtn.alpha = 0
-                self.registerBtn.alpha = 0
-                self.mypageBtn.alpha = 1
-                print(self.id!)
-                print(self.username)
-                print(self.token)
-            } catch {
-                print(error)
-            }
-        }
+        presenter.isUserVerified()
     }
     
     func loadData() {

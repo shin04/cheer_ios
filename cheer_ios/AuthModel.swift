@@ -22,13 +22,14 @@ struct User: Codable {
     var email: String?
 }
 
-@objc protocol AuthModelDelegate {
+protocol AuthModelDelegate {
     func didSignUp(token: String)
     func didLogin(token: String)
+    func didVerifiedUser(user: Who?)
 }
 
 class AuthModel {
-    weak var delegate: AuthModelDelegate?
+    var delegate: AuthModelDelegate?
     
     var url = CheerUrl.shared.baseUrl
     
@@ -57,28 +58,26 @@ class AuthModel {
                 do {
                     let result = response.result.value as? [String: Any]
                     token = result?["key"] as? String
+                    self.delegate?.didLogin(token: token!)
                 } catch {
                     print(error)
                 }
         }
-        self.delegate?.didLogin(token: token!)
+        
     }
     
-    func isUserVerified() -> Who {
-        var user: Who?
-        Alamofire.request(url + "api/who", method: .get,
-                          parameters: nil, encoding: JSONEncoding.default, headers: nil).response { reponse in
-            guard let data = reponse.data else {
-                return
-            }
+    func isUserVerified() {
+        var login_user: Who?
+        Alamofire.request(url + "api/who", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { reponse in
+            guard let data = reponse.data else { return }
             let decoder  = JSONDecoder()
             do {
-                let who: Who = try decoder.decode(Who.self, from: data)
-                user = who
+                let who: Who? = try decoder.decode(Who.self, from: data)
+                login_user = who
+                self.delegate?.didVerifiedUser(user: login_user)
             } catch {
                 print(error)
             }
         }
-        return user!
     }
 }

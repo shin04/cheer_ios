@@ -11,6 +11,7 @@ import Alamofire
 
 protocol LoginViewInterface: class {
     var parameters: [String: Any]? { get }
+    func toHome()
 }
 
 class LoginViewController: UIViewController, UITextFieldDelegate, LoginViewInterface {
@@ -46,6 +47,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginViewInter
         }
         textField.resignFirstResponder()
         return true
+    }
+    
+    func toHome() {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func login(_ sender: Any) {
