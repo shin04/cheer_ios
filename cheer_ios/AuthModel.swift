@@ -42,11 +42,11 @@ class AuthModel {
                 do {
                     let result = response.result.value as? [String: Any]
                     token = result?["key"] as? String
+                    self.delegate?.didSignUp(token: token!)
                 } catch {
                     print(error)
                 }
         }
-        self.delegate?.didSignUp(token: token!)
     }
     
     func login(parameters: [String: Any]) {

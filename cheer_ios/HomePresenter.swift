@@ -10,15 +10,20 @@ import Foundation
 
 class HomePresenter {
     let authModel: AuthModel
+    let postModel: PostModel
     
     weak var view: HomeViewInterface?
     
     var login_user: Who?
+    var posts: [Post]?
     
     init(with view: HomeViewInterface) {
         self.view = view
         self.authModel = AuthModel()
+        self.postModel = PostModel()
+        
         authModel.delegate = self
+        postModel.delegate = self
     }
     
     func isUserVerified() /*-> Who?*/ {
@@ -33,6 +38,17 @@ class HomePresenter {
             view?.reloadUserData()
         }
     }
+    
+    func loadPosts() {
+        postModel.loadPosts()
+    }
+    
+    func reloadPostData(posts: [Post]?) {
+        if posts?.count != nil {
+            self.posts = posts
+            view?.reloadPostsData()
+        }
+    }
 }
 
 extension HomePresenter: AuthModelDelegate {
@@ -42,5 +58,11 @@ extension HomePresenter: AuthModelDelegate {
     
     func didVerifiedUser(user: Who?) {
         self.reloadLoginUser(user: user)
+    }
+}
+
+extension HomePresenter: PostModelDelegate {
+    func didPost(posts: [Post]?) {
+        self.reloadPostData(posts: posts)
     }
 }

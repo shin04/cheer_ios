@@ -27,3 +27,38 @@ struct Comment: Codable {
     let text: String?
     let created_date: String
 }
+
+protocol PostModelDelegate {
+    func didPost(posts: [Post]?)
+}
+
+class PostModel {
+    var url = CheerUrl.shared.baseUrl
+    
+    var delegate: PostModelDelegate?
+    
+    func loadPosts() {
+        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder  = JSONDecoder()
+            do {
+                let allposts: [Post] = try decoder.decode([Post].self, from: data)
+                var posts: [Post] = []
+                var drafts: [Post] = []
+                for post in allposts {
+                    if post.achievement == false && post.published_date != nil {
+                        posts.append(post)
+                    } else if post.achievement == false && post.published_date == nil {
+                        drafts.append(post)
+                    }
+                }
+                self.delegate?.didPost(posts: posts)
+            } catch {
+                print(error)
+            }
+        }
+
+    }
+}

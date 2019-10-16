@@ -12,6 +12,7 @@ import SwiftyJSON
 
 protocol HomeViewInterface: class {
     func reloadUserData()
+    func reloadPostsData()
 }
 
 class ViewController: UIViewController, HomeViewInterface {
@@ -55,54 +56,36 @@ class ViewController: UIViewController, HomeViewInterface {
         self.loadData()
     }
     
-    func reloadUserData() {
-        self.usernameLabel.text = "こんにちは、\(presenter.login_user!.username!)さん"
-    }
-    
     func isUser() {
         presenter.isUserVerified()
     }
     
+    func reloadUserData() {
+        self.usernameLabel.text = "こんにちは、\(presenter.login_user!.username!)さん"
+    }
+
     func loadData() {
-        Alamofire.request(url + "api/posts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
-            guard let data = response.data else {
-                return
-            }
-            let decoder  = JSONDecoder()
-            do {
-                let allposts: [Post] = try decoder.decode([Post].self, from: data)
-                var posts: [Post] = []
-                var drafts: [Post] = []
-                for post in allposts {
-                    if post.achievement == false && post.published_date != nil {
-                        posts.append(post)
-                    } else if post.achievement == false && post.published_date == nil {
-                        drafts.append(post)
-                    }
-                }
-                self.posts = posts
-                self.drafts = drafts
-                self.currentCardNumber = 0
-                self.swipeCard.setCard(post: self.posts![0])
-                self.swipeCard2.setCard(post: self.posts![1])
-            } catch {
-                print(error)
-            }
-        }
+        presenter.loadPosts()
+    }
+    
+    func reloadPostsData() {
+        self.currentCardNumber = 0
+        self.swipeCard.setCard(post: presenter.posts![0])
+        self.swipeCard2.setCard(post: presenter.posts![1])
     }
     
     func setSwipeCard() {
         self.currentCardNumber = self.currentCardNumber! + 1
-        if self.currentCardNumber! + 1 == (self.posts?.count)! {
+        if self.currentCardNumber! + 1 == (presenter.posts?.count)! {
             self.swipeCard2.authorLabel.text = "投稿がありません"
             self.swipeCard2.titleLabel.text = ""
             self.swipeCard2.cheerLabel.text = ""
-            self.swipeCard.setCard(post: self.posts![currentCardNumber!])
-        } else if self.currentCardNumber! + 1 > (self.posts?.count)!  {
+            self.swipeCard.setCard(post: presenter.posts![currentCardNumber!])
+        } else if self.currentCardNumber! + 1 > (presenter.posts?.count)!  {
             self.swipeCard.alpha = 0
         } else {
-            self.swipeCard.setCard(post: self.posts![currentCardNumber!])
-            self.swipeCard2.setCard(post: self.posts![currentCardNumber!+1])
+            self.swipeCard.setCard(post: presenter.posts![currentCardNumber!])
+            self.swipeCard2.setCard(post: presenter.posts![currentCardNumber!+1])
         }
     }
     
