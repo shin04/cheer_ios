@@ -9,13 +9,19 @@
 import UIKit
 import Alamofire
 
-class PostDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol PostDetailViewInterface: class {
+    func reloadComments()
+}
+
+class PostDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PostDetailViewInterface {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var commentTableView: UITableView!
     @IBOutlet var cheerBtn: UIButton!
     @IBOutlet var editBtn: UIButton!
+    
+    var presenter: PostDetailPresenter!
     
     var url = CheerUrl.shared.baseUrl
     
@@ -34,6 +40,8 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = PostDetailPresenter(with: self)
+        
         commentTableView.delegate = self
         commentTableView.dataSource = self
         
@@ -50,12 +58,12 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             self.editBtn.alpha = 0
         }
         
-        self.load_comment()
+        self.loadComment()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (comment_index.count != 0) {
-            return comment_index.count
+        if (presenter.comment_index.count != 0) {
+            return presenter.comment_index.count
         } else {
             return 0
         }
@@ -63,32 +71,17 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = comments![comment_index[indexPath.row]].text
+        cell.textLabel!.text = presenter.comments![presenter.comment_index[indexPath.row]].text
         
         return cell
     }
     
-    func load_comment() {
-        Alamofire.request(url + "api/postcomment/?query_param=\(String(self.postId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
-            guard let data = response.data else {
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let comments: [Comment] = try decoder.decode([Comment].self, from: data)
-                self.comments = comments
-                if comments.count != 0 {
-                    for i in 0 ..< comments.count {
-                        if comments[i].text != "" {
-                            self.comment_index.append(i)
-                        }
-                    }
-                }
-                self.commentTableView.reloadData()
-            } catch {
-                print(error)
-            }
-        }
+    func loadComment() {
+        presenter.loadComments(postId: self.postId)
+    }
+    
+    func reloadComments() {
+        self.commentTableView.reloadData()
     }
     
     @IBAction func toEditAC(_ sender: Any) {

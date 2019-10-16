@@ -62,6 +62,8 @@ extension HomePresenter: AuthModelDelegate {
 }
 
 extension HomePresenter: PostModelDelegate {
+    func didLoadComments(comments: [Comment]?, comment_index: [Int]) {}
+    
     func didPost(posts: [Post]?) {
         self.reloadPostData(posts: posts)
     }

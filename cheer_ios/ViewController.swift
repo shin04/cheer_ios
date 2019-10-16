@@ -19,6 +19,7 @@ class ViewController: UIViewController, HomeViewInterface {
     @IBOutlet var loginBtn: UIButton!
     @IBOutlet var registerBtn: UIButton!
     @IBOutlet var mypageBtn: UIButton!
+    @IBOutlet var toDetailBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var swipeCard: SwipeCardView!
     @IBOutlet var swipeCard2: SwipeCardView!
@@ -26,6 +27,8 @@ class ViewController: UIViewController, HomeViewInterface {
     var presenter: HomePresenter!
     
     var url = CheerUrl.shared.baseUrl
+    
+    /* MVP完全移行したら消す */
     var posts: [Post]?
     var drafts: [Post]?
     var token: String = ""
@@ -33,8 +36,7 @@ class ViewController: UIViewController, HomeViewInterface {
     var id: Int? // ユーザID
     var username: String = ""
     var email:String = ""
-    
-    var loginUser: Who?
+    /* ここまで */
     
     var currentCardNumber: Int?
     
@@ -54,6 +56,20 @@ class ViewController: UIViewController, HomeViewInterface {
     override func viewWillAppear(_ animated: Bool) {
         self.isUser()
         self.loadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPostDetail" {
+            let postDetail = segue.destination as! PostDetailViewController
+            postDetail.postId = presenter.posts![currentCardNumber!].id
+            postDetail.token = (presenter.login_user?.token)!
+            postDetail.user = (presenter.login_user?.username)!
+            postDetail.userId = presenter.login_user?.id
+            postDetail.postTitle = presenter.posts![currentCardNumber!].title
+            postDetail.postText = presenter.posts![currentCardNumber!].text
+            postDetail.username = presenter.posts![currentCardNumber!].author.username
+            postDetail.achievement = false
+        }
     }
     
     func isUser() {
@@ -83,6 +99,7 @@ class ViewController: UIViewController, HomeViewInterface {
             self.swipeCard.setCard(post: presenter.posts![currentCardNumber!])
         } else if self.currentCardNumber! + 1 > (presenter.posts?.count)!  {
             self.swipeCard.alpha = 0
+            self.toDetailBtn.alpha = 0
         } else {
             self.swipeCard.setCard(post: presenter.posts![currentCardNumber!])
             self.swipeCard2.setCard(post: presenter.posts![currentCardNumber!+1])
@@ -154,23 +171,6 @@ class ViewController: UIViewController, HomeViewInterface {
         self.swipeCard.cheerImageView.image = UIImage(named: "cheer")
         self.swipeCard.cheerImageView.tintColor = UIColor.green
         self.cardFadeOut(card: self.swipeCard, x: self.swipeCard.center.x - 200, y: self.swipeCard.center.y + 75)
-    }
-    
-    @IBAction func toPostDetail(_ sender: UIButton) {
-        if currentCardNumber! >= (posts?.count)! {
-            print("投稿がありません")
-            return
-        }
-        let postDetail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
-        postDetail.postId = posts![currentCardNumber!].id
-        postDetail.token = self.token
-        postDetail.user = self.username
-        postDetail.userId = self.id
-        postDetail.postTitle = posts![currentCardNumber!].title
-        postDetail.postText = posts![currentCardNumber!].text
-        postDetail.username = posts![currentCardNumber!].author.username
-        postDetail.achievement = false
-        self.navigationController?.pushViewController(postDetail, animated: true)
     }
     
     @IBAction func loginAC(_ sender: Any) {

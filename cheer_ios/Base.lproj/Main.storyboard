@@ -223,7 +223,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="詳細"/>
                                 <connections>
-                                    <action selector="toPostDetail:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3b4-rd-vNT"/>
+                                    <segue destination="98r-6v-Pc2" kind="show" identifier="toPostDetail" id="nsV-r8-GSb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -238,6 +238,7 @@
                         <outlet property="registerBtn" destination="mNS-gs-gdk" id="nY2-tI-FWq"/>
                         <outlet property="swipeCard" destination="DeT-rh-3MW" id="Xpk-4z-jMN"/>
                         <outlet property="swipeCard2" destination="MXD-yk-74P" id="suI-UL-raq"/>
+                        <outlet property="toDetailBtn" destination="zLp-dJ-bDH" id="9om-nD-CNg"/>
                         <outlet property="usernameLabel" destination="oGL-zz-Pof" id="K1O-E0-a8c"/>
                     </connections>
                 </viewController>
