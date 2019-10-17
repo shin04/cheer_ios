@@ -16,9 +16,6 @@ protocol HomeViewInterface: class {
 }
 
 class ViewController: UIViewController, HomeViewInterface {
-    @IBOutlet var loginBtn: UIButton!
-    @IBOutlet var registerBtn: UIButton!
-    @IBOutlet var mypageBtn: UIButton!
     @IBOutlet var toDetailBtn: UIButton!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var swipeCard: SwipeCardView!
@@ -78,6 +75,15 @@ class ViewController: UIViewController, HomeViewInterface {
         self.currentCardNumber = 0
         self.swipeCard.setCard(post: presenter.posts![0])
         self.swipeCard2.setCard(post: presenter.posts![1])
+    }
+    
+    func comment(index: Int) {
+        let parameters: [String: Any] = ["post_id": index, "author": "", "text": ""]
+        var headers: [String: String] = [:]
+        if presenter.login_user?.token != "" {
+            headers.updateValue("", forKey: "Cookie")
+        }
+        presenter.comment(parameters: parameters, headers: headers)
     }
     
     func setSwipeCard() {
@@ -145,6 +151,7 @@ class ViewController: UIViewController, HomeViewInterface {
             } else if card.center.x > (view.frame.width - 75) {
                 //右側に消える
                 self.cardFadeOut(card: card as! SwipeCardView, x: card.center.x + 200, y: card.center.y + 75)
+                self.comment(index: currentCardNumber!)
                 return
             }
             self.returnCard(duration: 0.3, card: card as! SwipeCardView)
@@ -152,6 +159,7 @@ class ViewController: UIViewController, HomeViewInterface {
     }
     
     @IBAction func cheerBtn(_ sender: UIButton) {
+        self.comment(index: self.currentCardNumber!)
         self.swipeCard.cheerImageView.image = UIImage(named: "cheer")
         self.swipeCard.cheerImageView.tintColor = UIColor.green
         self.cardFadeOut(card: self.swipeCard, x: self.swipeCard.center.x + 200, y: self.swipeCard.center.y + 75)

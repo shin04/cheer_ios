@@ -60,7 +60,14 @@ class PostModel {
                         drafts.append(post)
                     }
                 }
-                self.delegate?.didPost(posts: posts)
+                
+                var randomPosts: [Post] = []
+                for _ in 0..<posts.count {
+                    let index = Int(arc4random_uniform(UInt32(posts.count)))
+                    randomPosts.append(posts[index])
+                    posts.remove(at: index)
+                }
+                self.delegate?.didPost(posts: randomPosts)
             } catch {
                 print(error)
             }

@@ -47,6 +47,10 @@ class HomePresenter {
             view?.reloadPostsData()
         }
     }
+    
+    func comment(parameters: [String: Any], headers: [String: String]) {
+        postModel.createComment(parameters: parameters, headers: headers)
+    }
 }
 
 extension HomePresenter: AuthModelDelegate {
