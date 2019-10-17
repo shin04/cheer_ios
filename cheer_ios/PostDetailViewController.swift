@@ -14,7 +14,7 @@ protocol PostDetailViewInterface: class {
     func reloadComments()
 }
 
-class PostDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PostDetailViewInterface {
+class PostDetailViewController: UIViewController, PostDetailViewInterface {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
@@ -27,24 +27,21 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var url = CheerUrl.shared.baseUrl
     
-    var userId: Int!
+    var user: String = "" // ログイン中のユーザ
+    var userId: Int! // ログイン中のユーザのID
+    var token: String = ""
+    
     var postId: Int!
     var postTitle: String!
     var postText: String!
     var username: String! // 投稿したユーザ
     var achievement: Bool!
-    var user: String = "" // ログイン中のユーザ
-    var token: String = ""
-    
-    var comments: [Comment]?
-    var comment_index: [Int] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         presenter = PostDetailPresenter(with: self)
         
-        commentTableView.delegate = self
         commentTableView.dataSource = self
         
         self.titleLabel.text = postTitle
@@ -64,7 +61,7 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toEditPost" {
+        if segue.identifier == "toEditPostFromDetail" {
             let edit = segue.destination as! EditPostViewController
             edit.id = self.userId
             edit.username = self.username
@@ -73,21 +70,6 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             edit.postTitle = self.postTitle
             edit.postText = self.postText
         }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (presenter.comment_index.count != 0) {
-            return presenter.comment_index.count
-        } else {
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = presenter.comments![presenter.comment_index[indexPath.row]].text
-        
-        return cell
     }
     
     func loadComment() {
@@ -103,6 +85,7 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         
         var authorField: UITextField!
         var commentField: UITextField!
+        
         alert.addTextField(configurationHandler: { (textField) -> Void in
             authorField = textField
         })
@@ -130,5 +113,25 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         alert.addAction(cancelBtn)
         present(alert, animated: true, completion: nil)
     }
+    
+    @IBAction func toPostEdit(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "toEditPostFromDetail", sender: nil)
+    }
+}
 
+extension PostDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (presenter.comment_index.count != 0) {
+            return presenter.comment_index.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.text = presenter.comments![presenter.comment_index[indexPath.row]].text
+        
+        return cell
+    }
 }

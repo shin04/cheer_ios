@@ -75,20 +75,6 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
         }
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
         presenter.editPost(postId: self.postId, parameters: parameters, headers: headers)
-        
-//        Alamofire.request(url + "api/posts/\(String(self.postId))/",
-//                          method: .put,
-//                          parameters: parameters,
-//                          encoding: JSONEncoding.default,
-//                          headers: headers)
-//            .responseJSON { response in
-//                do {
-//                    let result = response.result.value
-//                    print(result!)
-//                } catch {
-//                    print(error)
-//                }
-//        }
     }
     
     @IBAction func deleteAC(_ sender: Any) {

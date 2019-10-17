@@ -30,7 +30,7 @@ struct Comment: Codable {
 
 protocol PostModelDelegate {
     func didPost(posts: [Post]?)
-    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?)
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?)
     func didCreatePost()
     func didEditPost()
     func didLoadComments(comments: [Comment]?, comment_index: [Int])
@@ -87,7 +87,7 @@ class PostModel {
                         drafts.append(post)
                     }
                 }
-                self.delegate?.didLoadMyPosts(posts: posts, drafts: drafts, achievePost: achievePosts)
+                self.delegate?.didLoadMyPosts(posts: posts, drafts: drafts, achievePosts: achievePosts)
             } catch {
                 print(error)
             }

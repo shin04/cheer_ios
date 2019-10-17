@@ -66,7 +66,7 @@ extension HomePresenter: PostModelDelegate {
     
     func didLoadUserComments(comments: [Comment]?) {}
     
-    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?) {}
     
     func didCreateComment() {}
     

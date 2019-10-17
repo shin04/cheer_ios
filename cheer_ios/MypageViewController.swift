@@ -14,21 +14,13 @@ protocol MyPageViewInterface: class {
     func reloadData()
 }
 
-class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPageViewInterface {
+class MypageViewController: UIViewController, MyPageViewInterface {
     @IBOutlet var tableView: UITableView!
     
     var url = CheerUrl.shared.baseUrl
     
     var presenter: MyPagePresenter!
     
-    var posts: [Post]?
-    var drafts: [Post]?
-    var achievePosts: [Post]?
-    var comments: [Comment]?
-    var id: Int?
-    var username: String?
-    var email: String?
-    var token: String = ""
     var sectionTitles: [String] = ["投稿", "応援一覧", "草稿", "達成した目標"]
 
     override func viewDidLoad() {
@@ -55,6 +47,29 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func toPostEditOrDetail(view: UIViewController) {
+        self.present(view, animated: true, completion: nil)
+    }
+    
+    func isUser() {
+        presenter.isUserVerified()
+    }
+    
+    func loadData() {
+        presenter.loadMyPosts()
+        presenter.loadUserComments()
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
+    @IBAction func postViewAC(_ sender: Any) {
+        self.performSegue(withIdentifier: "toNewPost", sender: nil)
+    }
+}
+
+extension MypageViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -73,8 +88,8 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         else if section == 1 {
-            if ((comments?.count) != nil) {
-                return (comments?.count)!
+            if ((presenter.comments?.count) != nil) {
+                return (presenter.comments?.count)!
             } else {
                 return 0
             }
@@ -97,12 +112,10 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if indexPath.section == 0 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
             cell.textLabel!.text = presenter.posts?[indexPath.row].title
-            
             return cell
         } else if indexPath.section == 1 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel!.text = comments?[indexPath.row].text
-            
+            cell.textLabel!.text = presenter.comments?[indexPath.row].text
             return cell
         } else if indexPath.section == 2{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
@@ -114,57 +127,38 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
         }
     }
-    
+}
+
+extension MypageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost") as! EditPostViewController
         let detail = self.storyboard?.instantiateViewController(withIdentifier: "postDetail") as! PostDetailViewController
-        edit.id = self.id
-        edit.token = self.token
+        edit.id = presenter.login_user?.id
+        edit.token = (presenter.login_user?.token)!
         if indexPath.section == 0 {
-            edit.postId = posts![indexPath.row].id
-            edit.postTitle = posts![indexPath.row].title
-            edit.postText = posts![indexPath.row].text
-            edit.username = posts![indexPath.row].author.username
+            edit.postId = presenter.posts![indexPath.row].id
+            edit.postTitle = presenter.posts![indexPath.row].title
+            edit.postText = presenter.posts![indexPath.row].text
+            edit.username = presenter.posts![indexPath.row].author.username
             self.toPostEditOrDetail(view: edit)
         } else if indexPath.section == 1 {
-            edit.comment = comments![indexPath.row].text
-            self.toPostEditOrDetail(view: edit)
+            //edit.comment = comments![indexPath.row].text
+            //self.toPostEditOrDetail(view: edit)
         } else if indexPath.section == 2{
-            edit.postId = drafts![indexPath.row].id
-            edit.postTitle = drafts![indexPath.row].title
-            edit.postText = drafts![indexPath.row].text
-            edit.username = drafts![indexPath.row].author.username
+            edit.postId = presenter.drafts![indexPath.row].id
+            edit.postTitle = presenter.drafts![indexPath.row].title
+            edit.postText = presenter.drafts![indexPath.row].text
+            edit.username = presenter.drafts![indexPath.row].author.username
             self.toPostEditOrDetail(view: edit)
         } else {
-            detail.postId = achievePosts![indexPath.row].id
-            detail.token = self.token
-            detail.postTitle = achievePosts![indexPath.row].title
-            detail.postText = achievePosts![indexPath.row].text
-            detail.username = achievePosts![indexPath.row].author.username
+            detail.postId = presenter.achievePosts![indexPath.row].id
+            detail.token = (presenter.login_user?.token)!
+            detail.postTitle = presenter.achievePosts![indexPath.row].title
+            detail.postText = presenter.achievePosts![indexPath.row].text
+            detail.username = presenter.achievePosts![indexPath.row].author.username
             detail.achievement = true
             self.toPostEditOrDetail(view: detail)
         }
-    }
-    
-    func toPostEditOrDetail(view: UIViewController) {
-        self.navigationController?.pushViewController(view, animated: true)
-    }
-    
-    func isUser() {
-        presenter.isUserVerified()
-    }
-    
-    func loadData() {
-        presenter.loadMyPosts()
-        presenter.loadUserComments()
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
-    }
-    
-    @IBAction func postViewAC(_ sender: Any) {
-        self.performSegue(withIdentifier: "toNewPost", sender: nil)
     }
 }

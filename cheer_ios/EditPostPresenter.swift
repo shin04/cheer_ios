@@ -15,7 +15,7 @@ class EditPostPresenter {
     init(with view: EditPostViewInterface) {
         self.view = view
         postModel = PostModel()
-        postModel.delegate = self as! PostModelDelegate
+        postModel.delegate = self
     }
     
     func editPost(postId: Int, parameters: [String: Any], headers: [String: String]) {
@@ -26,7 +26,7 @@ class EditPostPresenter {
 extension EditPostPresenter: PostModelDelegate {
     func didPost(posts: [Post]?) {}
     
-    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?) {}
     
     func didCreatePost() {}
     

@@ -28,16 +28,6 @@ class ViewController: UIViewController, HomeViewInterface {
     
     var url = CheerUrl.shared.baseUrl
     
-    /* MVP完全移行したら消す */
-    var posts: [Post]?
-    var drafts: [Post]?
-    var token: String = ""
-    var header: [String: String]?
-    var id: Int? // ユーザID
-    var username: String = ""
-    var email:String = ""
-    /* ここまで */
-    
     var currentCardNumber: Int?
     
     var divisor: CGFloat! // swipe card の角度の計算用
@@ -171,15 +161,6 @@ class ViewController: UIViewController, HomeViewInterface {
         self.swipeCard.cheerImageView.image = UIImage(named: "cheer")
         self.swipeCard.cheerImageView.tintColor = UIColor.green
         self.cardFadeOut(card: self.swipeCard, x: self.swipeCard.center.x - 200, y: self.swipeCard.center.y + 75)
-    }
-    
-    @IBAction func mypageAC(_ sender: Any) {
-        let mypage = self.storyboard?.instantiateViewController(withIdentifier: "mypage") as! MypageViewController
-        mypage.id = self.id
-        mypage.username = self.username
-        mypage.email = self.email
-        mypage.token = self.token
-        self.navigationController?.pushViewController(mypage, animated: true)
     }
 
 }

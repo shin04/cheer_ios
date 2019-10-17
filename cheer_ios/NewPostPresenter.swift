@@ -28,7 +28,7 @@ extension NewPostPresenter: PostModelDelegate {
     
     func didPost(posts: [Post]?) {}
     
-    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?) {}
     
     func didCreatePost() {
         view?.toHome()

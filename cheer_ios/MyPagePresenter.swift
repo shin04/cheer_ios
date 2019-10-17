@@ -42,10 +42,10 @@ class MyPagePresenter {
         postModel.loadMyPosts()
     }
     
-    func reloadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {
+    func reloadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?) {
         self.posts = posts
         self.drafts = drafts
-        self.achievePosts = achievePost
+        self.achievePosts = achievePosts
         view?.reloadData()
     }
     
@@ -80,8 +80,8 @@ extension MyPagePresenter: PostModelDelegate {
     
     func didPost(posts: [Post]?) {}
     
-    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {
-        self.reloadMyPosts(posts: posts, drafts: drafts, achievePost: achievePosts)
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePosts: [Post]?) {
+        self.reloadMyPosts(posts: posts, drafts: drafts, achievePosts: achievePosts)
     }
     
     func didLoadComments(comments: [Comment]?, comment_index: [Int]) {}

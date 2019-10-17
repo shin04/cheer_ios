@@ -310,7 +310,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="編集"/>
                                 <connections>
-                                    <segue destination="Sh9-sg-jDi" kind="show" identifier="toEditPost" id="67o-tv-1eO"/>
+                                    <action selector="toPostEdit:" destination="98r-6v-Pc2" eventType="touchUpInside" id="x1i-dD-0WB"/>
+                                    <segue destination="Sh9-sg-jDi" kind="show" identifier="toEditPostFromDetail" id="67o-tv-1eO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -446,7 +447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SqT-DD-bM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1897" y="134"/>
+            <point key="canvasLocation" x="1953" y="484"/>
         </scene>
     </scenes>
 </document>
