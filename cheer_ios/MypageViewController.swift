@@ -9,10 +9,17 @@
 import UIKit
 import Alamofire
 
-class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol MyPageViewInterface: class {
+    func loadData()
+    func reloadData()
+}
+
+class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPageViewInterface {
     @IBOutlet var tableView: UITableView!
     
     var url = CheerUrl.shared.baseUrl
+    
+    var presenter: MyPagePresenter!
     
     var posts: [Post]?
     var drafts: [Post]?
@@ -22,16 +29,19 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var username: String?
     var email: String?
     var token: String = ""
-    //var header: [String: String]?
     var sectionTitles: [String] = ["投稿", "応援一覧", "草稿", "達成した目標"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        presenter = MyPagePresenter(with: self)
         
-        //self.header?.updateValue(self.token, forKey: "token")
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.isUser()
         self.loadData()
     }
     
@@ -46,8 +56,8 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            if ((posts?.count) != nil) {
-                return (posts?.count)!
+            if ((presenter.posts?.count) != nil) {
+                return (presenter.posts?.count)!
             } else {
                 return 0
             }
@@ -59,14 +69,14 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return 0
             }
         } else if section == 2 {
-            if ((drafts?.count) != nil) {
-                return (drafts?.count)!
+            if ((presenter.drafts?.count) != nil) {
+                return (presenter.drafts?.count)!
             } else {
                 return 0
             }
         } else {
-            if ((achievePosts?.count) != nil) {
-                return (achievePosts?.count)!
+            if ((presenter.achievePosts?.count) != nil) {
+                return (presenter.achievePosts?.count)!
             } else {
                 return 0
             }
@@ -76,7 +86,7 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel!.text = posts?[indexPath.row].title
+            cell.textLabel!.text = presenter.posts?[indexPath.row].title
             
             return cell
         } else if indexPath.section == 1 {
@@ -86,11 +96,11 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return cell
         } else if indexPath.section == 2{
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel!.text = drafts?[indexPath.row].title
+            cell.textLabel!.text = presenter.drafts?[indexPath.row].title
             return cell
         } else {
             let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel!.text = achievePosts?[indexPath.row].title
+            cell.textLabel!.text = presenter.achievePosts?[indexPath.row].title
             return cell
         }
     }
@@ -131,48 +141,17 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.pushViewController(view, animated: true)
     }
     
+    func isUser() {
+        presenter.isUserVerified()
+    }
+    
     func loadData() {
-        Alamofire.request(url + "api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
-            guard let data = response.data else {
-                return
-            }
-            let decoder  = JSONDecoder()
-            do {
-                let allposts: [Post] = try decoder.decode([Post].self, from: data)
-                var posts: [Post] = []
-                var drafts: [Post] = []
-                var achievePosts: [Post] = []
-                for post in allposts {
-                    if post.achievement == true {
-                        achievePosts.append(post)
-                    } else if post.published_date != nil {
-                        posts.append(post)
-                    } else {
-                        drafts.append(post)
-                    }
-                }
-                self.posts = posts
-                self.drafts = drafts
-                self.achievePosts = achievePosts
-                self.tableView.reloadData()
-            } catch {
-                print(error)
-            }
-        }
-        
-        Alamofire.request(url + "api/usercomment", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
-            guard let data = response.data else {
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let comments: [Comment] = try decoder.decode([Comment].self, from: data)
-                self.comments = comments
-                self.tableView.reloadData()
-            } catch {
-                print(error)
-            }
-        }
+        presenter.loadMyPosts()
+        presenter.loadUserComments()
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
     }
     
     @IBAction func postViewAC(_ sender: Any) {

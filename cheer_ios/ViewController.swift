@@ -167,20 +167,10 @@ class ViewController: UIViewController, HomeViewInterface {
         self.cardFadeOut(card: self.swipeCard, x: self.swipeCard.center.x + 200, y: self.swipeCard.center.y + 75)
     }
     
-    @IBAction func notCheerBtn(_sender :UIButton) {
+    @IBAction func notCheerBtn(_ sender :UIButton) {
         self.swipeCard.cheerImageView.image = UIImage(named: "cheer")
         self.swipeCard.cheerImageView.tintColor = UIColor.green
         self.cardFadeOut(card: self.swipeCard, x: self.swipeCard.center.x - 200, y: self.swipeCard.center.y + 75)
-    }
-    
-    @IBAction func loginAC(_ sender: Any) {
-        let login = self.storyboard?.instantiateViewController(withIdentifier: "login") as! LoginViewController
-        self.navigationController?.pushViewController(login, animated: true)
-    }
-    
-    @IBAction func signupAC(_ sender: Any) {
-        let signup = self.storyboard?.instantiateViewController(withIdentifier: "signup") as! SignUpViewController
-        self.navigationController?.pushViewController(signup, animated: true)
     }
     
     @IBAction func mypageAC(_ sender: Any) {

@@ -25,6 +25,7 @@
 		16D0ED18234AD516003D3FE4 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */; };
 		16D8BD99235758EF0075D35B /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8BD98235758EF0075D35B /* PostModel.swift */; };
 		16D8BD9B235762600075D35B /* PostDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8BD9A235762600075D35B /* PostDetailPresenter.swift */; };
+		16D8BD9D2357EEF80075D35B /* MyPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D8BD9C2357EEF80075D35B /* MyPagePresenter.swift */; };
 		16DE87A4232DCF6C0057B995 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */; };
 		16F324FA2355FFFD003FC7A8 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F324F92355FFFD003FC7A8 /* AuthModel.swift */; };
 		16F324FC23560E32003FC7A8 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F324FB23560E32003FC7A8 /* LoginPresenter.swift */; };
@@ -76,6 +77,7 @@
 		16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		16D8BD98235758EF0075D35B /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		16D8BD9A235762600075D35B /* PostDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailPresenter.swift; sourceTree = "<group>"; };
+		16D8BD9C2357EEF80075D35B /* MyPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePresenter.swift; sourceTree = "<group>"; };
 		16DE87A3232DCF6C0057B995 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		16F324F92355FFFD003FC7A8 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		16F324FB23560E32003FC7A8 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				16B81E052339B2C00022861F /* LoginViewController.swift */,
 				16F324FD235611D9003FC7A8 /* SignUpPresenter.swift */,
 				162C5F6B2344D5A600397D89 /* SignUpViewController.swift */,
+				16D8BD9C2357EEF80075D35B /* MyPagePresenter.swift */,
 				161E5C2E2345877000BB6DCE /* MypageViewController.swift */,
 				1671749F2346CEA400C3FA93 /* NewPostViewController.swift */,
 				16D0ED17234AD516003D3FE4 /* EditPostViewController.swift */,
@@ -451,6 +454,7 @@
 				16F324FE235611D9003FC7A8 /* SignUpPresenter.swift in Sources */,
 				161E5C2F2345877000BB6DCE /* MypageViewController.swift in Sources */,
 				16ABF90C22FE6F090036F215 /* AppDelegate.swift in Sources */,
+				16D8BD9D2357EEF80075D35B /* MyPagePresenter.swift in Sources */,
 				16A2B70223568E9D00105222 /* HomePresenter.swift in Sources */,
 				162C5F6C2344D5A600397D89 /* SignUpViewController.swift in Sources */,
 				160501982351F387008E009D /* SwipeCardView.swift in Sources */,

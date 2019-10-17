@@ -26,9 +26,7 @@ class HomePresenter {
         postModel.delegate = self
     }
     
-    func isUserVerified() /*-> Who?*/ {
-        //guard let verifiedUser: Who = authModel.isUserVerified() else { return nil }
-        //return verifiedUser
+    func isUserVerified() {
         authModel.isUserVerified()
     }
     
@@ -62,6 +60,12 @@ extension HomePresenter: AuthModelDelegate {
 }
 
 extension HomePresenter: PostModelDelegate {
+    func didLoadUserComments(comments: [Comment]?) {}
+    
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    
+    func didCreateComment() {}
+    
     func didLoadComments(comments: [Comment]?, comment_index: [Int]) {}
     
     func didPost(posts: [Post]?) {

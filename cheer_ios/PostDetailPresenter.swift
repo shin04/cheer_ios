@@ -35,14 +35,25 @@ class PostDetailPresenter {
         }
     }
     
+    func comment(parameters: [String: Any], headers: [String: String]) {
+        postModel.createComment(parameters: parameters, headers: headers)
+    }
+    
 }
 
 extension PostDetailPresenter: PostModelDelegate {
+    func didLoadUserComments(comments: [Comment]?) {}
+    
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    
     func didPost(posts: [Post]?) {}
     
     func didLoadComments(comments: [Comment]?, comment_index: [Int]) {
         self.reloadComments(comments: comments, comment_index: comment_index)
     }
     
+    func didCreateComment() {
+        view?.loadComment()
+    }
     
 }

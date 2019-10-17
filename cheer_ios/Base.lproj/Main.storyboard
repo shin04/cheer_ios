@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zYE-hE-LcQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="-565"/>
+            <point key="canvasLocation" x="-234" y="1623"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="uX0-un-8sI">
@@ -110,23 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUT-iV-6Y9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="-565"/>
-        </scene>
-        <!--Item 2-->
-        <scene sceneID="nIb-hP-leq">
-            <objects>
-                <viewController id="crX-oP-czz" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sB5-d3-7Ku">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="w0u-qS-h6W"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="GDo-xI-VIe"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pEx-eK-En8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-714" y="-547"/>
+            <point key="canvasLocation" x="572" y="1624"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dcQ-2S-BBX">
@@ -139,12 +123,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="3Pp-X9-XPF"/>
-                        <segue destination="crX-oP-czz" kind="relationship" relationship="viewControllers" id="jJn-BS-nHK"/>
+                        <segue destination="4yq-rb-XJe" kind="relationship" relationship="viewControllers" id="m06-va-xH4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEY-fv-GgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1598" y="-8"/>
+            <point key="canvasLocation" x="-954" y="485"/>
         </scene>
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
@@ -154,32 +138,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSz-LV-HFR">
-                                <rect key="frame" x="272" y="86" width="60" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="mypage"/>
-                                <connections>
-                                    <action selector="mypageAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jpA-1W-bq1"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUo-Sg-qie">
-                                <rect key="frame" x="239" y="86" width="60" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="login"/>
-                                <connections>
-                                    <action selector="loginAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TY9-LS-h8P"/>
-                                    <segue destination="ncy-QL-vIr" kind="show" id="aon-gb-KeJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNS-gs-gdk">
-                                <rect key="frame" x="307" y="86" width="60" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="register"/>
-                                <connections>
-                                    <action selector="signupAC:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cd3-Ix-UiE"/>
-                                    <segue destination="j8L-LZ-bGG" kind="show" id="Opw-1H-oXC"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="初めましてゲストさん" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGL-zz-Pof">
                                 <rect key="frame" x="16" y="86" width="200" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -215,7 +173,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="応援しない"/>
                                 <connections>
-                                    <action selector="notCheerBtnWith_sender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cEl-6c-LXc"/>
+                                    <action selector="notCheerBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b9T-a1-CRC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLp-dJ-bDH">
@@ -233,9 +191,6 @@
                     <tabBarItem key="tabBarItem" title="Item" id="aG9-NK-iM5"/>
                     <navigationItem key="navigationItem" id="wAh-O5-6go"/>
                     <connections>
-                        <outlet property="loginBtn" destination="sUo-Sg-qie" id="v1I-O9-Riq"/>
-                        <outlet property="mypageBtn" destination="rSz-LV-HFR" id="LUp-wd-7ds"/>
-                        <outlet property="registerBtn" destination="mNS-gs-gdk" id="nY2-tI-FWq"/>
                         <outlet property="swipeCard" destination="DeT-rh-3MW" id="Xpk-4z-jMN"/>
                         <outlet property="swipeCard2" destination="MXD-yk-74P" id="suI-UL-raq"/>
                         <outlet property="toDetailBtn" destination="zLp-dJ-bDH" id="9om-nD-CNg"/>
@@ -251,7 +206,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
-        <!--Mypage View Controller-->
+        <!--Item-->
         <scene sceneID="Q0N-S7-cBN">
             <objects>
                 <viewController storyboardIdentifier="mypage" id="4yq-rb-XJe" customClass="MypageViewController" customModule="cheer_ios" customModuleProvider="target" sceneMemberID="viewController">
@@ -286,8 +241,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qL6-dJ-q5i"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="cUJ-hG-2Ky"/>
                     <connections>
                         <outlet property="tableView" destination="l9Z-hy-0YQ" id="VHG-t5-FzQ"/>
+                        <segue destination="ncy-QL-vIr" kind="show" identifier="toLogin" id="oWF-KN-Drg"/>
+                        <segue destination="j8L-LZ-bGG" kind="show" identifier="toSignUp" id="zuv-NG-22O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqv-fh-ouW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -351,7 +309,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="編集"/>
                                 <connections>
-                                    <action selector="toEditAC:" destination="98r-6v-Pc2" eventType="touchUpInside" id="zPA-HA-FUT"/>
+                                    <segue destination="Sh9-sg-jDi" kind="show" identifier="toEditPost" id="67o-tv-1eO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -487,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SqT-DD-bM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="1546"/>
+            <point key="canvasLocation" x="1974" y="851"/>
         </scene>
     </scenes>
 </document>

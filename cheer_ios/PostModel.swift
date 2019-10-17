@@ -30,7 +30,10 @@ struct Comment: Codable {
 
 protocol PostModelDelegate {
     func didPost(posts: [Post]?)
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?)
     func didLoadComments(comments: [Comment]?, comment_index: [Int])
+    func didLoadUserComments(comments: [Comment]?)
+    func didCreateComment()
 }
 
 class PostModel {
@@ -62,6 +65,33 @@ class PostModel {
         }
     }
     
+    func loadMyPosts() {
+        Alamofire.request(url + "api/myposts/", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder  = JSONDecoder()
+            do {
+                let allposts: [Post] = try decoder.decode([Post].self, from: data)
+                var posts: [Post] = []
+                var drafts: [Post] = []
+                var achievePosts: [Post] = []
+                for post in allposts {
+                    if post.achievement == true {
+                        achievePosts.append(post)
+                    } else if post.published_date != nil {
+                        posts.append(post)
+                    } else {
+                        drafts.append(post)
+                    }
+                }
+                self.delegate?.didLoadMyPosts(posts: posts, drafts: drafts, achievePost: achievePosts)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func loadComments(postId: Int) {
         Alamofire.request(url + "api/postcomment/?query_param=\(postId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
             guard let data = response.data else {
@@ -79,6 +109,33 @@ class PostModel {
                     }
                 }
                 self.delegate?.didLoadComments(comments: comments, comment_index: comment_index)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func loadUserComments() {
+        Alamofire.request(url + "api/usercomment", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).response { response in
+            guard let data = response.data else {
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let comments: [Comment] = try decoder.decode([Comment].self, from: data)
+                self.delegate?.didLoadUserComments(comments: comments)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func createComment(parameters: [String: Any], headers: [String: String]) {
+        Alamofire.request(self.url + "api/comment/", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            do {
+                let result = response.result.value
+                print(result!)
+                self.delegate?.didCreateComment()
             } catch {
                 print(error)
             }

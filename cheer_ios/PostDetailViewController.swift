@@ -10,10 +10,12 @@ import UIKit
 import Alamofire
 
 protocol PostDetailViewInterface: class {
+    func loadComment()
     func reloadComments()
 }
 
 class PostDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, PostDetailViewInterface {
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
@@ -61,6 +63,18 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.loadComment()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditPost" {
+            let edit = segue.destination as! EditPostViewController
+            edit.id = self.userId
+            edit.username = self.username
+            edit.token = self.token
+            edit.postId = self.postId
+            edit.postTitle = self.postTitle
+            edit.postText = self.postText
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (presenter.comment_index.count != 0) {
             return presenter.comment_index.count
@@ -82,17 +96,6 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func reloadComments() {
         self.commentTableView.reloadData()
-    }
-    
-    @IBAction func toEditAC(_ sender: Any) {
-        let edit = self.storyboard?.instantiateViewController(withIdentifier: "editpost")  as! EditPostViewController
-        edit.id = self.userId
-        edit.username = self.username
-        edit.token = self.token
-        edit.postId = self.postId
-        edit.postTitle = self.postTitle
-        edit.postText = self.postText
-        self.present(edit, animated: true, completion: nil)
     }
     
     @IBAction func post_comment() {
@@ -117,23 +120,10 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             
             var headers = [String: String]()
             if self.token != "" {
-                //let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
                 headers.updateValue("", forKey: "Cookie")
             }
             
-            Alamofire.request(self.url + "api/comment/",
-                              method: .post,
-                              parameters: parameters,
-                              encoding: JSONEncoding.default,
-                              headers: headers)
-                .responseJSON { response in
-                    do {
-                        let result = response.result.value
-                        print(result!)
-                    } catch {
-                        print(error)
-                    }
-            }
+            self.presenter.comment(parameters: parameters, headers: headers)
         })
         
         let cancelBtn: UIAlertAction = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
