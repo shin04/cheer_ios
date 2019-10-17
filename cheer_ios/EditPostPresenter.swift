@@ -8,6 +8,35 @@
 
 import Foundation
 
-class EditPresenter {
+class EditPostPresenter {
+    weak var view: EditPostViewInterface?
+    var postModel: PostModel
     
+    init(with view: EditPostViewInterface) {
+        self.view = view
+        postModel = PostModel()
+        postModel.delegate = self as! PostModelDelegate
+    }
+    
+    func editPost(postId: Int, parameters: [String: Any], headers: [String: String]) {
+        postModel.editPost(postId: postId, parameters: parameters, headers: headers)
+    }
+}
+
+extension EditPostPresenter: PostModelDelegate {
+    func didPost(posts: [Post]?) {}
+    
+    func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}
+    
+    func didCreatePost() {}
+    
+    func didEditPost() {
+        view?.toMypage()
+    }
+    
+    func didLoadComments(comments: [Comment]?, comment_index: [Int]) {}
+    
+    func didLoadUserComments(comments: [Comment]?) {}
+    
+    func didCreateComment() {}
 }

@@ -24,6 +24,8 @@ class NewPostPresenter {
 }
 
 extension NewPostPresenter: PostModelDelegate {
+    func didEditPost() {}
+    
     func didPost(posts: [Post]?) {}
     
     func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}

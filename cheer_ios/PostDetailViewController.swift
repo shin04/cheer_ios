@@ -117,12 +117,10 @@ class PostDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 "author": authorField.text!,
                 "text": commentField.text!,
                 ]
-            
             var headers = [String: String]()
             if self.token != "" {
                 headers.updateValue("", forKey: "Cookie")
             }
-            
             self.presenter.comment(parameters: parameters, headers: headers)
         })
         

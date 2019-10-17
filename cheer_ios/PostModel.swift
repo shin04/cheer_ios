@@ -32,6 +32,7 @@ protocol PostModelDelegate {
     func didPost(posts: [Post]?)
     func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?)
     func didCreatePost()
+    func didEditPost()
     func didLoadComments(comments: [Comment]?, comment_index: [Int])
     func didLoadUserComments(comments: [Comment]?)
     func didCreateComment()
@@ -99,6 +100,18 @@ class PostModel {
                 let result = response.result.value
                 print(result!)
                 self.delegate?.didCreatePost()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func editPost(postId: Int, parameters: [String: Any], headers: [String: String]) {
+        Alamofire.request(url + "api/posts/\(String(postId))/", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers) .responseJSON { response in
+            do {
+                let result = response.result.value
+                print(result!)
+                self.delegate?.didEditPost()
             } catch {
                 print(error)
             }

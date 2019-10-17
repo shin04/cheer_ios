@@ -42,6 +42,8 @@ class PostDetailPresenter {
 }
 
 extension PostDetailPresenter: PostModelDelegate {
+    func didEditPost() {}
+    
     func didCreatePost() {}
     
     func didLoadUserComments(comments: [Comment]?) {}

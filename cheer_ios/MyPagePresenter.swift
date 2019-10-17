@@ -70,6 +70,8 @@ extension MyPagePresenter: AuthModelDelegate {
 }
 
 extension MyPagePresenter: PostModelDelegate {
+    func didEditPost() {}
+    
     func didCreatePost() {}
     
     func didLoadUserComments(comments: [Comment]?) {

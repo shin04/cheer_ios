@@ -247,7 +247,6 @@
                         <segue destination="ncy-QL-vIr" kind="show" identifier="toLogin" id="oWF-KN-Drg"/>
                         <segue destination="j8L-LZ-bGG" kind="show" identifier="toSignUp" id="zuv-NG-22O"/>
                         <segue destination="Mrc-jq-6iE" kind="show" identifier="toNewPost" id="vlc-0u-QOl"/>
-                        <segue destination="Sh9-sg-jDi" kind="show" identifier="toEditPost" id="TUk-wl-Iqd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqv-fh-ouW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,10 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SqT-DD-bM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1974" y="851"/>
+            <point key="canvasLocation" x="1897" y="134"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="TUk-wl-Iqd"/>
-    </inferredMetricsTieBreakers>
 </document>

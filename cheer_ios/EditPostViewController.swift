@@ -9,11 +9,17 @@
 import UIKit
 import Alamofire
 
-class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+protocol EditPostViewInterface: class {
+    func toMypage()
+}
+
+class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, EditPostViewInterface {
     @IBOutlet var titleField: UITextField!
     @IBOutlet var textView: UITextView!
     
     var url = CheerUrl.shared.baseUrl
+    
+    var presenter: EditPostPresenter!
     
     var id: Int? // ログイン中のユーザのID
     var username: String?
@@ -27,6 +33,8 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter = EditPostPresenter(with: self)
 
         titleField.delegate = self
         
@@ -46,6 +54,10 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
         }
     }
     
+    func toMypage() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func postAC(_ sender: Any) {
         self.postText = textView.text!
         var parameters: [String: Any] = [
@@ -53,7 +65,6 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
             "title": self.postTitle,
             "text": self.postText,
             ]
-        
         if (sender as AnyObject).tag == 2 {
             let now = Date()
             let formatter = ISO8601DateFormatter()
@@ -62,22 +73,22 @@ class EditPostViewController: UIViewController, UITextFieldDelegate, UITextViewD
         } else if (sender as AnyObject).tag == 3 {
             parameters.updateValue(true, forKey: "achievement")
         }
-
         let headers = ["Cookie": "", "Authorization": "Token \(self.token)"]
+        presenter.editPost(postId: self.postId, parameters: parameters, headers: headers)
         
-        Alamofire.request(url + "api/posts/\(String(self.postId))/",
-                          method: .put,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default,
-                          headers: headers)
-            .responseJSON { response in
-                do {
-                    let result = response.result.value
-                    print(result!)
-                } catch {
-                    print(error)
-                }
-        }
+//        Alamofire.request(url + "api/posts/\(String(self.postId))/",
+//                          method: .put,
+//                          parameters: parameters,
+//                          encoding: JSONEncoding.default,
+//                          headers: headers)
+//            .responseJSON { response in
+//                do {
+//                    let result = response.result.value
+//                    print(result!)
+//                } catch {
+//                    print(error)
+//                }
+//        }
     }
     
     @IBAction func deleteAC(_ sender: Any) {
