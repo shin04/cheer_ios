@@ -60,6 +60,8 @@ extension HomePresenter: AuthModelDelegate {
 }
 
 extension HomePresenter: PostModelDelegate {
+    func didCreatePost() {}
+    
     func didLoadUserComments(comments: [Comment]?) {}
     
     func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?) {}

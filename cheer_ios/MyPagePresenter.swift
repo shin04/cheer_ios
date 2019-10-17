@@ -70,6 +70,8 @@ extension MyPagePresenter: AuthModelDelegate {
 }
 
 extension MyPagePresenter: PostModelDelegate {
+    func didCreatePost() {}
+    
     func didLoadUserComments(comments: [Comment]?) {
         self.reloadUserComments(comments: comments)
     }
@@ -83,6 +85,4 @@ extension MyPagePresenter: PostModelDelegate {
     func didLoadComments(comments: [Comment]?, comment_index: [Int]) {}
     
     func didCreateComment() {}
-    
-    
 }

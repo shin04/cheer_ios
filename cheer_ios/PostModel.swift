@@ -31,6 +31,7 @@ struct Comment: Codable {
 protocol PostModelDelegate {
     func didPost(posts: [Post]?)
     func didLoadMyPosts(posts: [Post]?, drafts: [Post]?, achievePost: [Post]?)
+    func didCreatePost()
     func didLoadComments(comments: [Comment]?, comment_index: [Int])
     func didLoadUserComments(comments: [Comment]?)
     func didCreateComment()
@@ -86,6 +87,18 @@ class PostModel {
                     }
                 }
                 self.delegate?.didLoadMyPosts(posts: posts, drafts: drafts, achievePost: achievePosts)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func createPost(parameters: [String: Any], headers: [String: String]) {
+        Alamofire.request(url + "api/posts/", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            do {
+                let result = response.result.value
+                print(result!)
+                self.delegate?.didCreatePost()
             } catch {
                 print(error)
             }

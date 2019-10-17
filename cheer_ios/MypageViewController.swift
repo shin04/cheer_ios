@@ -45,6 +45,16 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.loadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toNewPost" {
+            let newpost = segue.destination as! NewPostViewController
+            newpost.id = presenter.login_user?.id
+            newpost.username = presenter.login_user?.username
+            newpost.email = presenter.login_user?.email
+            newpost.token = (presenter.login_user?.token)!
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -155,11 +165,6 @@ class MypageViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func postViewAC(_ sender: Any) {
-        let newpost = self.storyboard?.instantiateViewController(withIdentifier: "newpost") as! NewPostViewController
-        newpost.id = self.id
-        newpost.username = self.username
-        newpost.email = self.email
-        newpost.token = self.token
-        self.navigationController?.pushViewController(newpost, animated: true)
+        self.performSegue(withIdentifier: "toNewPost", sender: nil)
     }
 }
